@@ -9,6 +9,9 @@ import java.util.Base64;
 import br.com.minhafarmacia.beans.Usuario;
 
 public class Util {
+	public void u(){
+		System.out.println("teste");
+	}
 	/**
 	 * Método responsavel por fazer a códificação da imagem, pega a foto no
 	 * banco que esta salvo em byte e a transforma em String base 64
