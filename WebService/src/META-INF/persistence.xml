@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="WebService">
+
+		<!-- PROVEDOR QUE IMPLEMENTOU A API JPA -->
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<!-- ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
+		<class>br.com.minhafarmacia.beans.Usuario</class>
+		<!-- <class>br.ucb.talp.enumeradores.EstadoCivil</class> -->
+		<!-- FIM DAS ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
+		<properties>
+			<!-- INICIO DAS CONFIGURACOES JDBC -->
+			<property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="eclipselink.jdbc.user" value="postgres" />
+			<property name="eclipselink.jdbc.password" value="2401" />
+			<property name="eclipselink.jdbc.url"
+				value="jdbc:postgresql://localhost:5432/usuario" />
+
+
+			<!-- FIM DAS CONFIGURACOES JDBC -->
+			<property name="eclipselink.show-sql" value="true" />
+			<property name="eclipselink.format-sql" value="true" />
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.logging.level" value="FINE" />
+		</properties>
+	</persistence-unit>
+</persistence>
