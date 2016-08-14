@@ -1,18 +1,18 @@
 package br.com.minhafarmacia.beans;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import br.com.minhafarmacia.enumeradores.SexoType;
 
 @XmlRootElement
 @Entity()
@@ -25,10 +25,12 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
+	@Transient
 	private String foto;
 	private byte[] fotoByte;
 	private String idFacebook;
-	
+	@Transient
+	private String dataNascimentoString;
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
@@ -40,6 +42,9 @@ public class Usuario {
 	
 	
 	public Usuario() {
+	}
+	public Usuario(String email){
+		setEmail(email);
 	}
 	public Usuario(String nome, String email, String senha,String foto, byte[] fotoByte){
 		setNome(nome);
@@ -145,13 +150,52 @@ public class Usuario {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	
+	
+	public String getDataNascimentoString() {
+//		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+//		Date dataNascimentoCorreto = new Date();
+//		try {
+//			dataNascimentoCorreto = (Date)formatter.parse(dataNascimento);
+//			System.out.println("--->"+dataNascimentoCorreto);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return dataNascimentoString;
+	}
+	public void setDataNascimentoString(String dataNascimentoString) {
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+		Date dataNascimentoCorreto = new Date();
+		try {
+			dataNascimentoCorreto = (Date)formatter.parse(dataNascimentoString);
+			System.out.println("-------------------------------");
+			System.out.println("--->"+dataNascimentoCorreto);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setDataNascimento(dataNascimentoCorreto);
+		this.dataNascimentoString = dataNascimentoString;
+	}
+	
+	
+	
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(String dataNascimento) {
-		System.out.println("------> ESTOU PASSANDO POR AQUI <-------");
-		System.out.println("-----> "+dataNascimento+" <------");
-		this.dataNascimento = new Date();
+	public void setDataNascimento(Date dataNascimento) {
+		
+//		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+//		Date dataNascimentoCorreto = new Date();
+//		try {
+//			dataNascimentoCorreto = (Date)formatter.parse(dataNascimento);
+//			System.out.println("--->"+dataNascimentoCorreto);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		this.dataNascimento = dataNascimento;
 	}
 	
 

@@ -8,7 +8,6 @@ import java.util.Date;
 
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.UsuarioDAO;
-import br.com.minhafarmacia.enumeradores.SexoType;
 
 public class TesteBanco {
 
@@ -25,12 +24,12 @@ public class TesteBanco {
 		byte []byt = null;
 		u.setFotoByte(byt);
 		u.setEmail("AnnaLuis@gmail.com");
-		new UsuarioDAO().inseirUsuario(u);
+		//new UsuarioDAO().inseirUsuario(u);
 //		System.out.println("fim");
 		
-		
+		System.out.println(new UsuarioDAO().verificaExistencia("annasluisa@gmail.com"));
 		//System.out.println(new UsuarioDAO().fazLogin("kleiton@gmail.com", "q123"));
-		//Usuario u = new UsuarioDAO().buscaUsuarioEmail("annaluisatr@gmail.com");
+		// u = new UsuarioDAO().buscaUsuarioEmail("kleiton");
 		//System.out.println(u);
 //		try {
 //			converteByteArrayToFile(u.getFotoByte());

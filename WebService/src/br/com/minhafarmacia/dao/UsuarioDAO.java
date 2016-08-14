@@ -6,6 +6,7 @@ import javax.persistence.Query;
 import br.com.minhafarmacia.beans.Usuario;
 
 public class UsuarioDAO {
+	
 	/**
 	 * Método responsavel por inserir um usuario no banco. O usuário vem da aplicação mobile
 	 * @param user
@@ -16,6 +17,14 @@ public class UsuarioDAO {
 		con.getManager().persist(user);
 		con.getManager().getTransaction().commit();
 	}
+	
+	public boolean verificaExistencia(String email){
+		String jpql = "select u from Usuario u where u.email = ?1";
+		Query query = new FactoryCon().getManager().createQuery(jpql);
+		query.setParameter(1, email);
+		return true;
+	}
+	
 	/**
 	 * Busca o usuário com os critérios de email e senha para realizar a autenticação do login
 	 * @param email

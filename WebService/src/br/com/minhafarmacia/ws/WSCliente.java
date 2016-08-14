@@ -30,7 +30,13 @@ public class WSCliente {
 
 		return u;
 	}
-
+	@GET
+	@Path("/consulta-email/{email}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario consultaUsuarioEmail(@PathParam("email") String email){
+		
+		return null;
+	}
 	/**
 	 * Método responsavel para buscar o usuario no banco com os parametos email
 	 * e senha
@@ -71,6 +77,7 @@ public class WSCliente {
 				usuario.setFotoByte(Util.converteToByte(usuario.getFoto()));
 				usuario.setFoto("true");
 				usuario.setDataCadastro(new Date());
+				System.out.println(usuario.getDataNascimento()+"<----------");
 				new UsuarioDAO().inseirUsuario(usuario);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
