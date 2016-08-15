@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.minhafarmacia.util.Util;
+
 @XmlRootElement
 @Entity()
 public class Usuario {
@@ -165,17 +167,7 @@ public class Usuario {
 		return dataNascimentoString;
 	}
 	public void setDataNascimentoString(String dataNascimentoString) {
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-		Date dataNascimentoCorreto = new Date();
-		try {
-			dataNascimentoCorreto = (Date)formatter.parse(dataNascimentoString);
-			System.out.println("-------------------------------");
-			System.out.println("--->"+dataNascimentoCorreto);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setDataNascimento(dataNascimentoCorreto);
+		setDataNascimento(Util.converteStringToDate(Util.trataDataPadraoString(dataNascimentoString)));
 		this.dataNascimentoString = dataNascimentoString;
 	}
 	

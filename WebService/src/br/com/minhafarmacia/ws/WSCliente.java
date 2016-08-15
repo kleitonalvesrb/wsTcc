@@ -12,8 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
-
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.UsuarioDAO;
 import br.com.minhafarmacia.util.Util;
@@ -26,16 +24,28 @@ public class WSCliente {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario getUsuario() {
 		// crio usuario
-		Usuario u = new UsuarioDAO().buscaUsuarioEmail("kleiton.a.batista1@gmail.com");
-
-		return u;
+		
+		return new Usuario();
 	}
+	/**
+	 * Consulta a existencia de usuário que já tenha email cadastrado no banco de dados
+	 * ira retornar um usuario apenas com o email caso o usuário ja esteja cadastrado ou retornará um
+	 * usuário com o email prenchido com string vazia caso não tenha cadastrado no banco
+	 * @param email
+	 * @return
+	 */
 	@GET
 	@Path("/consulta-email/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Usuario consultaUsuarioEmail(@PathParam("email") String email){
-		
-		return null;
+		System.out.println("---->"+email);
+		Usuario u = new Usuario();
+		UsuarioDAO uDao = new UsuarioDAO();
+		if (uDao.verificaExistencia(email))
+			u.setEmail(email);
+		else
+			u.setEmail("");
+		return u;
 	}
 	/**
 	 * Método responsavel para buscar o usuario no banco com os parametos email

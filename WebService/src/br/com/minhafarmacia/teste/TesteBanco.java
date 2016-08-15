@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.text.DateFormatter;
 
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.UsuarioDAO;
+import br.com.minhafarmacia.util.Util;
 
 public class TesteBanco {
 
@@ -23,11 +27,13 @@ public class TesteBanco {
 		u.setSexo("Feminino");
 		byte []byt = null;
 		u.setFotoByte(byt);
-		u.setEmail("AnnaLuis@gmail.com");
-		//new UsuarioDAO().inseirUsuario(u);
+		u.setEmail("annaluisa@gmail.com");
+		//
+		//System.out.println(Util.trataDataPadraoString("1 de mar de 1998"));
+		u.setDataNascimento(Util.converteStringToDate(Util.trataDataPadraoString("1 de mar de 1998")));
 //		System.out.println("fim");
-		
-		System.out.println(new UsuarioDAO().verificaExistencia("annasluisa@gmail.com"));
+		new UsuarioDAO().inseirUsuario(u);
+		//System.out.println(new UsuarioDAO().verificaExistencia("annaluisa@gmail.com"));
 		//System.out.println(new UsuarioDAO().fazLogin("kleiton@gmail.com", "q123"));
 		// u = new UsuarioDAO().buscaUsuarioEmail("kleiton");
 		//System.out.println(u);

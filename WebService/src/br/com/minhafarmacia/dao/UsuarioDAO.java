@@ -22,7 +22,7 @@ public class UsuarioDAO {
 		String jpql = "select u from Usuario u where u.email = ?1";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
 		query.setParameter(1, email);
-		return true;
+		return query.getResultList().size() > 0;
 	}
 	
 	/**
