@@ -40,7 +40,7 @@ public class Email {
 			email.setAuthentication(getEmailProprietario(), getSenha());
 			email.setSSLOnConnect(true);
 			email.setFrom(getEmailProprietario(), getNome());
-			email.setMsg(getMsg() + "\n" + preparaHora());
+			email.setMsg(preparaMsg(getMsg()));
 			email.setSubject(getAssunto());
 			email.addTo(getDestinatario());
 			email.send();
@@ -50,13 +50,22 @@ public class Email {
 		}
 
 	}
+	private String preparaMsg(String msg){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Sua senha de acesso é : ");
+		sb.append(msg);
+		sb.append("\n Solicitação de recuperação de senha realizado em: ");
+		sb.append(preparaHora());
+		sb.append("\n\n\n Caso não tenha solicitado recuperação de senha ignorar esse E-mail");
+		return sb.toString();
+	}
 
 	/**
 	 * Formata a data para o padrao brasileiro
 	 * 
 	 * @return data e hora atual no formato de String
 	 */
-	public String preparaHora() {
+	private String preparaHora() {
 		StringBuilder sb = new StringBuilder();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd 'de' MMM 'de' yyyy 'as' hh:mm");
 		return sb.append(sdf.format(new Date())).toString();
