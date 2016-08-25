@@ -64,7 +64,12 @@ public class UsuarioDAO {
 		String jpql = "Select u from Usuario u where u.email = ?1";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
 		query.setParameter(1, email);
-		Usuario user = (Usuario) query.getSingleResult();
-		return user;
+		try {
+			Usuario user = (Usuario) query.getSingleResult();
+			return user;
+		} catch (NoResultException e) {
+			return null;
+		}
+		
 	}
 }

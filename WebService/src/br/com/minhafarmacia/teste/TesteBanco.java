@@ -48,8 +48,12 @@ public class TesteBanco {
 		//// e.printStackTrace();
 		//// }
 		//inserir();
-		testeAtualizacao();
+		//testeAtualizacao();
 	//testeBuscar();
+		testeBuscaEmail("adfadfaad");
+	}
+	public static void testeBuscaEmail(String email){
+		System.out.println(new UsuarioDAO().buscaUsuarioEmail(email));
 	}
 	public static void testeBuscar(){
 		UsuarioDAO udao = new UsuarioDAO();
