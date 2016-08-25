@@ -1,14 +1,17 @@
 package br.com.minhafarmacia.beans;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -36,11 +39,14 @@ public class Usuario {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
+	
 	private String sexo;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-	
+	@JoinColumn(name = "usuario_id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 	
 	
 	public Usuario() {
@@ -48,15 +54,23 @@ public class Usuario {
 	public Usuario(String email){
 		setEmail(email);
 	}
-	public Usuario(String nome, String email, String senha,String foto, byte[] fotoByte){
+	public Usuario(String nome, String email, String senha,String foto, byte[] fotoByte,List<Medicamento> medicamentos){
 		setNome(nome);
 		setEmail(email);
 		setSenha(senha);
 		setFoto(foto);
 		setFotoByte(fotoByte);
+		setMedicamentos(medicamentos);
 	}
 	
 	
+	
+	public List<Medicamento> getMedicamentos() {
+		return medicamentos;
+	}
+	public void setMedicamentos(List<Medicamento> medicamentos) {
+		this.medicamentos = medicamentos;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -101,7 +115,7 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return "Nome: "+getNome()+" Email: "+getEmail()+" Senha: "+getSenha()+"\n Foto "+getFotoByte()+"Sexo "+getSexo()+" data "+getDataNascimento();
+		return "Nome: "+getNome()+" Email: "+getEmail()+" Senha: "+getSenha()+"\n Foto "+getFotoByte()+"Sexo "+getSexo()+" data "+getDataNascimento()+"\n meedicamentos "+getMedicamentos();
 	}
 //	public byte[] getFoto() {
 //		return foto;

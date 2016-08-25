@@ -1,16 +1,14 @@
 package br.com.minhafarmacia.email;
 
-import org.apache.commons.mail.EmailException;
-
 public class TesteEnvioEmail {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+			System.out.println("aki");
 			Email email = new Email();
 			email.setAssunto("Teste de email");
-			email.setDestinatario("kleiton.a.batista@gmail.com");
-			email.setMsg("Ola Kleiton, estamos testando o envio de email");
+			email.setDestinatario("annaluisatr@gmail.com");
+			email.setMsg("Eu te amo");
 			email.SendEmail();
 	
 	}

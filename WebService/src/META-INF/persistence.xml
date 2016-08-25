@@ -6,20 +6,20 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<!-- ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
 		<class>br.com.minhafarmacia.beans.Usuario</class>
+		<class>br.com.minhafarmacia.beans.Medicamento</class>
+
 		<!-- <class>br.ucb.talp.enumeradores.EstadoCivil</class> -->
 		<!-- FIM DAS ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
 		<properties>
 			<!-- INICIO DAS CONFIGURACOES JDBC -->
-			<property name="eclipselink.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="eclipselink.jdbc.user" value="postgres" />
-			<property name="eclipselink.jdbc.password" value="2401" />
-			<property name="eclipselink.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/usuario" />
+			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/usuario" />
+			<property name="eclipselink.jdbc.user" value="root"/>
+			<property name="eclipselink.jdbc.password" value="ak240112"/>
 
-
-			<!-- FIM DAS CONFIGURACOES JDBC -->
-			<property name="eclipselink.show-sql" value="true" />
-			<property name="eclipselink.format-sql" value="true" />
+		<!--  FIM  DAS CONFIGURACOES JDBC  -->
+			<property name="eclipselink.show-sql" value="true"/>
+			<property name="eclipselink.format-sql" value="true"/>
 			<property name="eclipselink.ddl-generation" value="create-tables" />
 			<property name="eclipselink.logging.level" value="FINE" />
 		</properties>

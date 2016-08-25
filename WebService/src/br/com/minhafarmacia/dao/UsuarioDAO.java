@@ -17,6 +17,17 @@ public class UsuarioDAO {
 		con.getManager().persist(user);
 		con.getManager().getTransaction().commit();
 	}
+	/**
+	 * Método responsavel por atualizar os dados do usuário, ele receberá um usuário
+	 * completo e irá atualizar o que está de diferente em seu conteúdo
+	 * @param user
+	 */
+	public void atualizarUsuario(Usuario user){
+		FactoryCon con = new FactoryCon();
+		con.getManager().getTransaction().begin();
+		con.getManager().merge(user);
+		con.getManager().getTransaction().commit();
+	}
 	
 	public boolean verificaExistencia(String email){
 		String jpql = "select u from Usuario u where u.email = ?1";

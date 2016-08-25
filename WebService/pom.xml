@@ -34,12 +34,17 @@
 			<version>2.6.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+		<!-- https://mvnrepository.com/artifact/postgresql/postgresql <dependency> 
+			<groupId>postgresql</groupId> <artifactId>postgresql</artifactId> <version>9.0-801.jdbc4</version> 
+			</dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.0-801.jdbc4</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.37</version>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/asm/asm -->
 		<dependency>
