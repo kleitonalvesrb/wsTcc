@@ -118,40 +118,15 @@ public class WSCliente {
 		Usuario u = new Usuario();
 		u = udao.fazLogin(email, senha);
 		// System.out.println("------>"+u.getNome());
-		if (u != null)
+		if (u != null){
 			u = Util.trataDadosUsuario(u);
+			u.setMedicamentos(null);
+		}
 
 		return u;
 	}
 
-	/**
-	 * Método responsavel por atualizar os medicamentos do usuário, recebe o
-	 * email do usuário para identificar qual deverá ser atualizado e os dados
-	 * do medicamentos
-	 * 
-	 * @param email
-	 * @param medicamento
-	 */
-	@PUT
-	@Path("/atualizar/{email}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void atualizarUsuario(@PathParam("email") String email, Medicamento medicamento) {
-		if (medicamento != null && email != null && email.trim() != "") {
-			try {
-				medicamento.setFotoBytes(Util.converteToByte(medicamento.getFotoMedicamentoString()));
-			} catch (IOException e) {
-				System.out.println("Erro ao converter a foto do medicamento");
-			}
-			UsuarioDAO udao = new UsuarioDAO();
-			Usuario u = udao.buscaUsuarioEmail(email);
-			if (u != null){
-				List<Medicamento> medicamentos = u.getMedicamentos();
-				medicamentos.add(medicamento);
-				u.setMedicamentos(medicamentos);
-				udao.atualizarUsuario(u);
-			}
-		}
-	}
+	
 
 	/**
 	 * Método responsavel por inserir usuario no banco de dados

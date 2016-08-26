@@ -18,6 +18,22 @@ public class UsuarioDAO {
 		con.getManager().getTransaction().commit();
 	}
 	/**
+	 * Método responsavel por buscar o usuario no banco de dados pelo seu id
+	 * @param id
+	 * @return usuario completo ou null caso nao encontre nenhum usuario
+	 */
+	public Usuario buscaUsurioId(int id){
+		String jpql = "select u from usuario u where u.idusuario = ?1";
+		Query query = new FactoryCon().getManager().createQuery(jpql);
+		query.setParameter(1, 1);
+		try {
+			Usuario u = (Usuario) query.getSingleResult();
+			return u;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	/**
 	 * Método responsavel por atualizar os dados do usuário, ele receberá um usuário
 	 * completo e irá atualizar o que está de diferente em seu conteúdo
 	 * @param user

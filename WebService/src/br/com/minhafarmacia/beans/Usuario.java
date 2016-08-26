@@ -1,5 +1,6 @@
 package br.com.minhafarmacia.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,15 +22,20 @@ import br.com.minhafarmacia.util.Util;
 
 @XmlRootElement
 @Entity()
-public class Usuario {
+public class Usuario implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idUsuario;
 	private Integer idade;
 	private String nome;
 	private String email;
 	private String senha;
+	@JoinColumn(name = "usuario_id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Medicamento> medicamentos = new ArrayList<Medicamento>();
+	
+	
 	@Transient
 	private String foto;
 	private byte[] fotoByte;
@@ -44,9 +50,7 @@ public class Usuario {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-	@JoinColumn(name = "usuario_id")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<Medicamento> medicamentos = new ArrayList<Medicamento>();
+	
 	
 	
 	public Usuario() {

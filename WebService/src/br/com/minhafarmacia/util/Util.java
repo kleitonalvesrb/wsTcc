@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
+import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Usuario;
 
 public class Util {
@@ -140,6 +141,20 @@ public class Util {
 			System.out.println(e);
 		}
 		return u;
+	}
+	/**
+	 * Método responsavel por fazer a códificacao da imagem, pega a foto no banco
+	 * que esta salvo como byte e a transforma em String base 64
+	 * @param m
+	 * @return todos os dados do medicamento
+	 */
+	public static Medicamento trataDadosMedicamento(Medicamento m){
+		if (m.getFotoBytes() != null){
+			m.setFotoMedicamentoString(m.getFotoBytes().toString());
+			String e = Base64.getEncoder().encodeToString(m.getFotoBytes());
+			m.setFotoMedicamentoString(e);
+		}
+		return m;
 	}
 
 	/**

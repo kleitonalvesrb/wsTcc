@@ -9,6 +9,7 @@ import java.util.List;
 
 import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Usuario;
+import br.com.minhafarmacia.dao.MedicamentoDAO;
 import br.com.minhafarmacia.dao.UsuarioDAO;
 
 public class TesteBanco {
@@ -50,7 +51,15 @@ public class TesteBanco {
 		//inserir();
 		//testeAtualizacao();
 	//testeBuscar();
-		testeBuscaEmail("adfadfaad");
+		//testeBuscaEmail("kleiton@gmail.com");
+		testeBuscaMedicamentos();
+	//buscaUsuarioId();
+	}
+	public static void buscaUsuarioId(){
+		System.out.println(new UsuarioDAO().buscaUsurioId(1));
+	}
+	public static void testeBuscaMedicamentos(){
+		System.out.println(new MedicamentoDAO().buscaTodosMedicamentosUsuario("kleiton@gmail.com"));
 	}
 	public static void testeBuscaEmail(String email){
 		System.out.println(new UsuarioDAO().buscaUsuarioEmail(email));
