@@ -1,27 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="WebService">
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-		<!-- PROVEDOR QUE IMPLEMENTOU A API JPA -->
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<!-- ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
+	<!-- unidade de persistencia com o nome JPA_UNIT -->
+	<persistence-unit name="JPA_UNIT">
+
+		<!-- Implementação do JPA, no nosso caso Hibernate -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<!-- Aqui são listadas todas as entidades -->
 		<class>br.com.minhafarmacia.beans.Usuario</class>
 		<class>br.com.minhafarmacia.beans.Medicamento</class>
 
-		<!-- <class>br.ucb.talp.enumeradores.EstadoCivil</class> -->
-		<!-- FIM DAS ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
 		<properties>
-			<!-- INICIO DAS CONFIGURACOES JDBC -->
-			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/usuario" />
-			<property name="eclipselink.jdbc.user" value="root"/>
-			<property name="eclipselink.jdbc.password" value="ak240112"/>
+			<property name="connection.poll_size" value="20"/>
+			<!-- Propriedades JDBC 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql:$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/minha" />
+			<property name="javax.persistence.jdbc.user" value="admin7uXu8A6" />
+			<property name="javax.persistence.jdbc.password" value="CjHnAdJe38jv" /> -->
+			
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql:$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/minha" />
+			<property name="javax.persistence.jdbc.user" value="admin7uXu8A6" />
+			<property name="javax.persistence.jdbc.password" value="CjHnAdJe38jv" />
+			
 
-		<!--  FIM  DAS CONFIGURACOES JDBC  -->
-			<property name="eclipselink.show-sql" value="true"/>
-			<property name="eclipselink.format-sql" value="true"/>
-			<property name="eclipselink.ddl-generation" value="create-tables" />
-			<property name="eclipselink.logging.level" value="FINE" />
+			<!-- Configurações específicas do Hibernate -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
 		</properties>
 	</persistence-unit>
-</persistence>
+
+
+
+
+	<!-- Eclipse link -->	<!-- PROVEDOR QUE IMPLEMENTOU A API JPA < rovider>org.eclipse.persistence.jpa.PersistenceProvider</provider> 
+		TIDADES CONHECIDAS PELO ENTITY MANAGER -->
+	<!-- lass>br.com.minhafarmacia.beans.Usuario</class> < lass>br.com.minhafarmacia.beans.Medicamento</class> 
+		- -->		<!-- <class>br.ucb.talp.enumeradores.EstadoCivil</class> -->
+	<!-- FIM DAS ENTIDADES CONHECIDAS PELO ENTITY MANAGER -->
+	<!-- roperties> - -->
+	<!-- INICIO DAS CONFIGURACOES JDBC -->
+
+	<!--<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/usuario" 
+		<property name="eclipselink.jdbc.user" value="root"/> <property name="eclipselink.jdbc.password" 
+		lue="ak240112"/> -->
+
+	<!-- 184.107.51.101 -->
+
+	<!-- roperty name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" 
+		< roperty name="eclipselink.jdbc.url" v lue="jdbc:mysql://184.107.51.101:3306/minhafar_BdTeste2" 
+		< roperty name="eclipselink.jdbc.user" value="minhafar_kleiton" /> < roperty 
+		me="eclipselink.jdbc.password" value="240112" /> - -->
+
+	<!-- FIM DAS CONFIGURACOES JDBC -->
+
+	<!-- roperty name="eclipselink.show-sql" value="true" /> < roperty name="eclipselink.format-sql" 
+		lue="true" /> < roperty name="eclipselink.ddl-generation" value="create-tables" 
+		< roperty name="eclipselink.logging.level" value="FINE" /> < properties> 
+		- -->
+<!-- </persistence-unit>
+ --></persistence>

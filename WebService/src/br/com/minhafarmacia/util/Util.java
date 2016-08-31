@@ -172,7 +172,7 @@ public class Util {
 		byte[] decoded = Base64.getDecoder().decode(str);
 		System.out.println(decoded);
 		System.out.println(decoded.length);
-		converteByteArrayToFile(decoded);
+		//converteByteArrayToFile(decoded);
 		return decoded;
 	}
 

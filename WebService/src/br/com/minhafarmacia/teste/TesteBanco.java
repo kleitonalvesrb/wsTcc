@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.MedicamentoDAO;
@@ -48,12 +52,27 @@ public class TesteBanco {
 		//// // TODO Auto-generated catch block
 		//// e.printStackTrace();
 		//// }
-		//inserir();
+		inserir();
 		//testeAtualizacao();
 	//testeBuscar();
 		//testeBuscaEmail("kleiton@gmail.com");
-		testeBuscaMedicamentos();
+		//testeBuscaMedicamentos();
 	//buscaUsuarioId();
+		
+		//testeBanco();
+	}
+	
+	public static void testeBanco(){
+		
+		Usuario u = new Usuario();
+		u.setNome("Kleiton");
+		u.setEmail("kleiton@gmail.com");
+		u.setSenha("1234");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA_UNIT");
+		EntityManager manager = factory.createEntityManager();
+		manager.getTransaction().begin();    
+		manager.persist(u);
+		manager.getTransaction().commit();
 	}
 	public static void buscaUsuarioId(){
 		System.out.println(new UsuarioDAO().buscaUsurioId(1));
@@ -66,7 +85,7 @@ public class TesteBanco {
 	}
 	public static void testeBuscar(){
 		UsuarioDAO udao = new UsuarioDAO();
-		System.out.println("----->"+udao.fazLogin("kleiton@gmail.com", "1234")+"<-----");
+		System.out.println("----->"+udao.fazLogin("kleiton.a.batista@gmail.com", "1234")+"<-----");
 	}
 	public static void testeAtualizacao() {
 		UsuarioDAO udao = new UsuarioDAO();
@@ -87,7 +106,7 @@ public class TesteBanco {
 	public static void inserir(){
 		Usuario u = new Usuario();
 		u.setNome("kleiton");
-		u.setEmail("kleiton.a.batista@gmail.com");
+		u.setEmail("kleiton.a@gmail.com");
 		u.setSenha("1234");
 		u.setSexo("masculino");
 		Medicamento m = new Medicamento();

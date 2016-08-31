@@ -7,7 +7,7 @@ public class FactoryCon {
 	private EntityManager manager;
 	
 	public FactoryCon(){
-		setManager(Persistence.createEntityManagerFactory("WebService").createEntityManager());
+		setManager(Persistence.createEntityManagerFactory("JPA_UNIT").createEntityManager());
 	}
 
 	public EntityManager getManager() {
