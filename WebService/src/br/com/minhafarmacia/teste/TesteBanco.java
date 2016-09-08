@@ -1,10 +1,11 @@
-package br.com.minhafarmacia.teste;
+ package br.com.minhafarmacia.teste;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.MedicamentoDAO;
 import br.com.minhafarmacia.dao.UsuarioDAO;
+import br.com.minhafarmacia.util.Util;
 
 public class TesteBanco {
 
@@ -106,13 +108,15 @@ public class TesteBanco {
 	public static void inserir(){
 		Usuario u = new Usuario();
 		u.setNome("kleiton");
-		u.setEmail("kleiton.a@gmail.com");
+		u.setEmail("kleiton.a.batista@gmail.com");
 		u.setSenha("1234");
 		u.setSexo("masculino");
+		//u.setDataNascimentoString(new Date().toString());
+		//u.setDataNascimento(new Util().converteStringToDate(u.getDataNascimentoString()));
 		Medicamento m = new Medicamento();
-		m.setApresentacao("remedio");
-		m.setCodigoBarras("31243413");
-		m.setNomeProduto("algo");
+		m.setApresentacao("Ibuprofeno 25MG");
+		m.setCodigoBarras("12345633");
+		m.setNomeProduto("Ibuprofeno");
 		ArrayList<Medicamento> ms = new ArrayList<>();
 		ms.add(m);
 		u.setMedicamentos(ms);

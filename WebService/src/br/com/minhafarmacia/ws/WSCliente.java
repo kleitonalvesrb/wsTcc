@@ -2,20 +2,18 @@ package br.com.minhafarmacia.ws;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
-import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.UsuarioDAO;
 import br.com.minhafarmacia.email.Email;
@@ -138,8 +136,9 @@ public class WSCliente {
 	@POST
 	@Path("/inserir")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void insereUsuario(Usuario usuario) {
-
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insereUsuario(Usuario usuario) {
+		System.out.println("método inserir <--------------");
 		if (usuario != null) {
 			try {
 				usuario.setFotoByte(Util.converteToByte(usuario.getFoto()));
@@ -147,15 +146,18 @@ public class WSCliente {
 				usuario.setDataCadastro(new Date());
 				System.out.println(usuario.getDataNascimento() + "<----------");
 				new UsuarioDAO().inseirUsuario(usuario);
+				System.out.println(Response.ok().entity(usuario).build());
+				return Response.ok().entity(usuario).build();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
+		System.out.println(Response.noContent().build());
+//		Response.status(Status.UNAUTHORIZED).entity(arg0)
+		return Response.noContent().build();
+
 	}
 
 	// public byte[] converteToByte(String str) throws FileNotFoundException,
