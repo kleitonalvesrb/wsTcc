@@ -23,9 +23,9 @@ public class UsuarioDAO {
 	 * @return usuario completo ou null caso nao encontre nenhum usuario
 	 */
 	public Usuario buscaUsurioId(int id){
-		String jpql = "select u from usuario u where u.idusuario = ?1";
+		String jpql = "select u from USUARIO u where u.idUsuario = :idUsuario";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
-		query.setParameter(1, 1);
+		query.setParameter("idUsuario", 1);
 		try {
 			Usuario u = (Usuario) query.getSingleResult();
 			return u;

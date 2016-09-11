@@ -12,6 +12,7 @@
 		<!-- Aqui são listadas todas as entidades -->
 		<class>br.com.minhafarmacia.beans.Usuario</class>
 		<class>br.com.minhafarmacia.beans.Medicamento</class>
+		<class>br.com.minhafarmacia.beans.Dosagem</class>
 
 		<properties>
 	 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

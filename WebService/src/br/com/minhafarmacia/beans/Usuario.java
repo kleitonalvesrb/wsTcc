@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -21,7 +22,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import br.com.minhafarmacia.util.Util;
 
 @XmlRootElement
-@Entity()
+@Entity(name = "USUARIO")
+@SequenceGenerator(name = "USUARIO_SEQUENCE", sequenceName = "USUARIO_SEQUENCE", allocationSize = 1, initialValue = 0)
 public class Usuario implements Serializable{
 	
 	@Id
@@ -31,8 +33,10 @@ public class Usuario implements Serializable{
 	private String nome;
 	private String email;
 	private String senha;
-	@JoinColumn(name = "usuario_id")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario_id")
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    @JoinColumn(name = "usuario_id")
 	private List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 	
 	

@@ -54,13 +54,13 @@ public class TesteBanco {
 		//// // TODO Auto-generated catch block
 		//// e.printStackTrace();
 		//// }
-		inserir();
+		//inserir();
 		//testeAtualizacao();
 	//testeBuscar();
 		//testeBuscaEmail("kleiton@gmail.com");
 		//testeBuscaMedicamentos();
 	//buscaUsuarioId();
-		
+		testeBuscaMedicamentoIdUsuario();
 		//testeBanco();
 	}
 	
@@ -78,6 +78,9 @@ public class TesteBanco {
 	}
 	public static void buscaUsuarioId(){
 		System.out.println(new UsuarioDAO().buscaUsurioId(1));
+	}
+	public static void testeBuscaMedicamentoIdUsuario(){
+		System.out.println(new MedicamentoDAO().buscaTodosMedicaemntosUsuarioId(1));
 	}
 	public static void testeBuscaMedicamentos(){
 		System.out.println(new MedicamentoDAO().buscaTodosMedicamentosUsuario("kleiton@gmail.com"));
@@ -114,6 +117,7 @@ public class TesteBanco {
 		//u.setDataNascimentoString(new Date().toString());
 		//u.setDataNascimento(new Util().converteStringToDate(u.getDataNascimentoString()));
 		Medicamento m = new Medicamento();
+		m.setUser(u);
 		m.setApresentacao("Ibuprofeno 25MG");
 		m.setCodigoBarras("12345633");
 		m.setNomeProduto("Ibuprofeno");

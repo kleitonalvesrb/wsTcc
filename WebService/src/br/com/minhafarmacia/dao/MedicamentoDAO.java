@@ -16,6 +16,20 @@ public class MedicamentoDAO {
 	 * @return lista de medicamentos
 	 */
 	
+	public List<Medicamento> buscaTodosMedicaemntosUsuarioId(int id){
+		String jpql = "Select m from MEDICAMENTO m where m.user.idUsuario = :usuario_id";
+		Query query = new FactoryCon().getManager().createQuery(jpql);
+		query.setParameter("usuario_id",id);
+		List<Medicamento> medicamentos = new ArrayList<>();
+		try {
+			medicamentos.addAll(query.getResultList());
+			return medicamentos;
+		} catch (NoResultException e) {
+			// TODO: handle exception
+			System.out.println("error");
+		}
+		return medicamentos;
+	}
 	public List<Medicamento> buscaTodosMedicamentosUsuario(String email){
 		String jpql = "Select u from Usuario u where u.email = ?1";
 		Query query = new FactoryCon().getManager().createQuery(jpql);

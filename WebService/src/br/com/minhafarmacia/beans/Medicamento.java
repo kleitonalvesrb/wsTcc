@@ -2,15 +2,19 @@ package br.com.minhafarmacia.beans;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@Entity
+@Entity(name = "MEDICAMENTO")
+@SequenceGenerator(name = "MEDICAMENTO_SEQUENCE", sequenceName = "MEDICAMENTO_SEQUENCE", allocationSize = 1, initialValue = 0)
 public class Medicamento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +29,10 @@ public class Medicamento implements Serializable {
 	private String fotoMedicamentoString;
 	private byte [] fotoBytes;
 	
-	
+
+    @ManyToOne(cascade = CascadeType.ALL)
+	private Usuario user;
+    
     public Medicamento() {
 	}
     
@@ -55,6 +62,10 @@ public class Medicamento implements Serializable {
 		return true;
 	}
 	
+
+
+
+
 	public String getFotoMedicamentoString() {
 		return fotoMedicamentoString;
 	}
@@ -69,6 +80,18 @@ public class Medicamento implements Serializable {
 
 	public byte[] getFotoBytes() {
 		return fotoBytes;
+	}
+
+
+
+	public Usuario getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 
 
