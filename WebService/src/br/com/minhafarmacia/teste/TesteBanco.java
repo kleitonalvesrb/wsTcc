@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.minhafarmacia.beans.Dosagem;
 import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.MedicamentoDAO;
@@ -54,14 +55,15 @@ public class TesteBanco {
 		//// // TODO Auto-generated catch block
 		//// e.printStackTrace();
 		//// }
-		//inserir();
+		inserir();
 		//testeAtualizacao();
 	//testeBuscar();
 		//testeBuscaEmail("kleiton@gmail.com");
 		//testeBuscaMedicamentos();
 	//buscaUsuarioId();
-		testeBuscaMedicamentoIdUsuario();
+		//testeBuscaMedicamentoIdUsuario();
 		//testeBanco();
+		//fazLogin();
 	}
 	
 	public static void testeBanco(){
@@ -76,6 +78,9 @@ public class TesteBanco {
 		manager.persist(u);
 		manager.getTransaction().commit();
 	}
+	public static void fazLogin(){
+		System.out.println(new UsuarioDAO().fazLogin("kleiton.a.batista@gmail.com", "1234"));
+	}
 	public static void buscaUsuarioId(){
 		System.out.println(new UsuarioDAO().buscaUsurioId(1));
 	}
@@ -83,7 +88,7 @@ public class TesteBanco {
 		System.out.println(new MedicamentoDAO().buscaTodosMedicaemntosUsuarioId(1));
 	}
 	public static void testeBuscaMedicamentos(){
-		System.out.println(new MedicamentoDAO().buscaTodosMedicamentosUsuario("kleiton@gmail.com"));
+		System.out.println(new MedicamentoDAO().buscaTodosMedicamentosUsuario("kleiton.a.batista@gmail.com"));
 	}
 	public static void testeBuscaEmail(String email){
 		System.out.println(new UsuarioDAO().buscaUsuarioEmail(email));
@@ -94,7 +99,7 @@ public class TesteBanco {
 	}
 	public static void testeAtualizacao() {
 		UsuarioDAO udao = new UsuarioDAO();
-		Usuario u = udao.fazLogin("kleiton@gmail.com", "1234");
+		Usuario u = udao.fazLogin("kleiton.a.batista@gmail.com", "1234");
 		System.out.println("--->"+u);
 		Medicamento m = new Medicamento();
 		m.setApresentacao("Dorflex 25 mg");
@@ -114,13 +119,21 @@ public class TesteBanco {
 		u.setEmail("kleiton.a.batista@gmail.com");
 		u.setSenha("1234");
 		u.setSexo("masculino");
+		u.setDataCadastro(new Date());
+		u.setDataNascimento(new Date());
 		//u.setDataNascimentoString(new Date().toString());
 		//u.setDataNascimento(new Util().converteStringToDate(u.getDataNascimentoString()));
+		Dosagem d = new Dosagem();
+		d.setDataInicio("hoje");
+		d.setIntervalo(8);
+		d.setPeriodo(45);
+		d.setQuantidade(20);
+		d.setTipo("ml");
 		Medicamento m = new Medicamento();
-		m.setUser(u);
 		m.setApresentacao("Ibuprofeno 25MG");
 		m.setCodigoBarras("12345633");
 		m.setNomeProduto("Ibuprofeno");
+		m.setDosagem(d);
 		ArrayList<Medicamento> ms = new ArrayList<>();
 		ms.add(m);
 		u.setMedicamentos(ms);

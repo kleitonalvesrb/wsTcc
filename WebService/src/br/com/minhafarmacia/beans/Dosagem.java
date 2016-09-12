@@ -1,15 +1,21 @@
 package br.com.minhafarmacia.beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@Entity
+@Entity(name = "DOSAGEM")
+@SequenceGenerator(name = "DOSAGEM_SEQUENCE", sequenceName = "DOSAGEM_SEQUENCE",allocationSize = 1, initialValue = 0)
 public class Dosagem implements Serializable{
 	
 	/**
@@ -17,11 +23,14 @@ public class Dosagem implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DOSAGEM_SEQUENCE")
 	private Integer id;
 	private Integer quantidade;
 	private String tipo;
-	private String dataInicio;
+	@Transient
+	private String dataInicioString;
+	@Temporal(TemporalType.DATE)
+	private Date dataInicio;
 	private Integer periodo;
 	private Integer intervalo;
 	
@@ -95,12 +104,12 @@ public class Dosagem implements Serializable{
 
 
 	public String getDataInicio() {
-		return dataInicio;
+		return dataInicioString;
 	}
 
 
 	public void setDataInicio(String dataInicio) {
-		this.dataInicio = dataInicio;
+		this.dataInicioString = dataInicio;
 	}
 
 

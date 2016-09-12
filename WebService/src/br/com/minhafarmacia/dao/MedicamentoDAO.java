@@ -31,7 +31,7 @@ public class MedicamentoDAO {
 		return medicamentos;
 	}
 	public List<Medicamento> buscaTodosMedicamentosUsuario(String email){
-		String jpql = "Select u from Usuario u where u.email = ?1";
+		String jpql = "Select u from USUARIO u where u.email = ?1";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		List<Medicamento> medicamentos = new ArrayList<Medicamento>();

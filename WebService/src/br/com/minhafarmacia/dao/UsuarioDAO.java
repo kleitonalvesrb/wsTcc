@@ -46,7 +46,7 @@ public class UsuarioDAO {
 	}
 	
 	public boolean verificaExistencia(String email){
-		String jpql = "select u from Usuario u where u.email = ?1";
+		String jpql = "select u from USUARIO u where u.email = ?1";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		return query.getResultList().size() > 0;
@@ -59,7 +59,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public Usuario fazLogin(String email, String senha){
-		String jpql = "select u from Usuario u where u.email = ?1 and u.senha = ?2";
+		String jpql = "select u from USUARIO u where u.email = ?1 and u.senha = ?2";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		query.setParameter(2, senha);
@@ -77,7 +77,7 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public Usuario buscaUsuarioEmail(String email){
-		String jpql = "Select u from Usuario u where u.email = ?1";
+		String jpql = "Select u from USUARIO u where u.email = ?1";
 		Query query = new FactoryCon().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		try {

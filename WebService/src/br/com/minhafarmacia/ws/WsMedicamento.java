@@ -4,19 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import br.com.minhafarmacia.beans.Medicamento;
-import br.com.minhafarmacia.beans.Usuario;
-import br.com.minhafarmacia.dao.MedicamentoDAO;
-import br.com.minhafarmacia.dao.UsuarioDAO;
-import br.com.minhafarmacia.util.Util;
+import br.com.minhafarmacia.beans.*;
+import br.com.minhafarmacia.dao.*;
+import br.com.minhafarmacia.util.*;
 
 @Path("/medicamento")
 public class WsMedicamento {
@@ -35,34 +28,61 @@ public class WsMedicamento {
 		if (medicamento != null && email != null && email.trim() != "") {
 			try {
 				medicamento.setFotoBytes(Util.converteToByte(medicamento.getFotoMedicamentoString()));
+				System.out.println("1 ------> converteu a imagem para bytes");
 			} catch (IOException e) {
 				System.out.println("Erro ao converter a foto do medicamento");
 			}
 			UsuarioDAO udao = new UsuarioDAO();
 			Usuario u = udao.buscaUsuarioEmail(email);
+			System.out.println("vai verificar se encontrou usuario com o email informado");
 			if (u != null){
+				System.out.println(medicamento);
 				List<Medicamento> medicamentos = u.getMedicamentos();
+				System.out.println("2 ----> lista de medicamentos antes --->"+medicamentos.size());
 				medicamentos.add(medicamento);
+				System.out.println("3 ---> lista de medicamentos depois "+medicamentos.size());
 				u.setMedicamentos(medicamentos);
 				udao.atualizarUsuario(u);
+				System.out.println("4 -----> inseriu o medicamento para o usuario");
 			}
 		}
 	}
 	
 	@GET
-	@Path("/busca-medicamento/user-email/{email}")
+	@Path("/busca-medicamento/email-user/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Medicamento> buscaMedicamentos(@PathParam("email") String email){
+//		System.out.println("----->"+id+"<---");
+//		List<Medicamento> medicamentosAux;
+//		List<Medicamento> medicamentos = new  ArrayList<>();
+//		try {
+//			Integer idUsuario = Integer.parseInt(id);
+//			 medicamentosAux = new MedicamentoDAO().buscaTodosMedicaemntosUsuarioId(idUsuario);
+//			Util util = new Util();
+//			for (Medicamento m : medicamentosAux) {
+//				System.out.println("tamanho do byte"+m.getFotoBytes().length);
+//				medicamentos.add(util.trataDadosMedicamento(m));
+//			}
+//		} catch (NumberFormatException e) {
+//			// TODO: handle exception
+//		}
+//		System.out.println(medicamentos.size()+"tamanho do array");
+//		return medicamentos;
+		
 		Util util = new Util();
-		System.out.println("estamos aqui ->> "+email);
+//		System.out.println(" 5 estamos aqui ->> "+email);
 		List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 		List<Medicamento> medicamentosAux = new ArrayList<>();
 		if (email != ""){
 			MedicamentoDAO mdao = new MedicamentoDAO();
 			medicamentosAux.addAll(mdao.buscaTodosMedicamentosUsuario(email));
+//			System.out.println("6 lista de medicamentos ---->"+medicamentosAux);
 			for (Medicamento medicamento : medicamentosAux) {
+//				System.out.println("7 dentro do for");
+//				System.out.println("8 "+medicamento.getFotoBytes().length+"<---- tamanho da imagem");
 				medicamentos.add(util.trataDadosMedicamento(medicamento));
 			}
+//			System.out.println("9 fora do for");
 		}
 		return medicamentos;
 	}

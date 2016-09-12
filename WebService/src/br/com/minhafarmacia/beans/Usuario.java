@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +28,7 @@ import br.com.minhafarmacia.util.Util;
 public class Usuario implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQUENCE")
 	private Integer idUsuario;
 	private Integer idade;
 	private String nome;
@@ -35,7 +36,8 @@ public class Usuario implements Serializable{
 	private String senha;
 	//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario_id")
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     @JoinColumn(name = "usuario_id")
 	private List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 	

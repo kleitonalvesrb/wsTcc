@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @SequenceGenerator(name = "MEDICAMENTO_SEQUENCE", sequenceName = "MEDICAMENTO_SEQUENCE", allocationSize = 1, initialValue = 0)
 public class Medicamento implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEDICAMENTO_SEQUENCE")
 	private Integer id;
 	private String codigoBarras;
 	private String nomeProduto;
@@ -29,11 +32,23 @@ public class Medicamento implements Serializable {
 	private String fotoMedicamentoString;
 	private byte [] fotoBytes;
 	
-
-    @ManyToOne(cascade = CascadeType.ALL)
-	private Usuario user;
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn()
+	private Dosagem dosagem;
     
-    public Medicamento() {
+    public Dosagem getDosagem() {
+		return dosagem;
+	}
+
+
+
+	public void setDosagem(Dosagem dosagem) {
+		this.dosagem = dosagem;
+	}
+
+
+
+	public Medicamento() {
 	}
     
 	
@@ -84,15 +99,6 @@ public class Medicamento implements Serializable {
 
 
 
-	public Usuario getUser() {
-		return user;
-	}
-
-
-
-	public void setUser(Usuario user) {
-		this.user = user;
-	}
 
 
 
