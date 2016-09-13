@@ -127,7 +127,7 @@ public class TesteBanco {
 		d.setDataInicio("hoje");
 		d.setIntervalo(8);
 		d.setPeriodo(45);
-		d.setQuantidade(20);
+		d.setQuantidade(20D);
 		d.setTipo("ml");
 		Medicamento m = new Medicamento();
 		m.setApresentacao("Ibuprofeno 25MG");

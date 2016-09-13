@@ -4,14 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.Json;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.com.minhafarmacia.beans.*;
 import br.com.minhafarmacia.dao.*;
 import br.com.minhafarmacia.util.*;
 
 @Path("/medicamento")
+@Produces(MediaType.APPLICATION_JSON)
 public class WsMedicamento {
 	/**
 	 * Método responsavel por atualizar os medicamentos do usuário, recebe o
@@ -24,7 +28,10 @@ public class WsMedicamento {
 	@PUT
 	@Path("/atualizar/{email}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void atualizarUsuario(@PathParam("email") String email, Medicamento medicamento) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response atualizarUsuario(@PathParam("email") String email, Medicamento medicamento) {
+		System.out.println("--MEDICAMENTO-->"+medicamento);
+		System.out.println("--DOSAGEM--->"+medicamento.getDosagem().toString());
 		if (medicamento != null && email != null && email.trim() != "") {
 			try {
 				medicamento.setFotoBytes(Util.converteToByte(medicamento.getFotoMedicamentoString()));
@@ -45,7 +52,12 @@ public class WsMedicamento {
 				udao.atualizarUsuario(u);
 				System.out.println("4 -----> inseriu o medicamento para o usuario");
 			}
+		}else{
+			System.out.println("tem alguma coisa errada nessa merda");
 		}
+		//return Response.status(Status.UNAUTHORIZED).entity(medicamento).build();
+		 
+		return Response.ok().entity(medicamento).build();
 	}
 	
 	@GET
@@ -87,3 +99,7 @@ public class WsMedicamento {
 		return medicamentos;
 	}
 }
+
+/*
+ * 
+ * */

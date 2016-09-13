@@ -15,9 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity(name = "DOSAGEM")
-@SequenceGenerator(name = "DOSAGEM_SEQUENCE", sequenceName = "DOSAGEM_SEQUENCE",allocationSize = 1, initialValue = 0)
-public class Dosagem implements Serializable{
-	
+@SequenceGenerator(name = "DOSAGEM_SEQUENCE", sequenceName = "DOSAGEM_SEQUENCE", allocationSize = 1, initialValue = 0)
+public class Dosagem implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -25,7 +25,7 @@ public class Dosagem implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DOSAGEM_SEQUENCE")
 	private Integer id;
-	private Integer quantidade;
+	private Double quantidade;
 	private String tipo;
 	@Transient
 	private String dataInicioString;
@@ -33,19 +33,17 @@ public class Dosagem implements Serializable{
 	private Date dataInicio;
 	private Integer periodo;
 	private Integer intervalo;
-	
-	
-	public Dosagem(){
-		
-	}
 
+	public Dosagem() {
+
+	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+
+		return "Quantidade " + getQuantidade() + " Tipo " + getTipo() + " dataInicio " + getDataInicioString()+" Intervalo "+getIntervalo()+" Dias "+getPeriodo()+"";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -54,6 +52,17 @@ public class Dosagem implements Serializable{
 		return result;
 	}
 
+	public String getDataInicioString() {
+		return dataInicioString;
+	}
+
+	public void setDataInicioString(String dataInicioString) {
+		this.dataInicioString = dataInicioString;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -72,65 +81,52 @@ public class Dosagem implements Serializable{
 		return true;
 	}
 
-
 	public Integer getId() {
 		return id;
 	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-	public Integer getQuantidade() {
+	public Double getQuantidade() {
 		return quantidade;
 	}
 
-
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
-
 
 	public String getTipo() {
 		return tipo;
 	}
 
-
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
 
 	public String getDataInicio() {
 		return dataInicioString;
 	}
 
-
 	public void setDataInicio(String dataInicio) {
 		this.dataInicioString = dataInicio;
 	}
-
 
 	public Integer getPeriodo() {
 		return periodo;
 	}
 
-
 	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
 	}
-
 
 	public Integer getIntervalo() {
 		return intervalo;
 	}
 
-
 	public void setIntervalo(Integer intervalo) {
 		this.intervalo = intervalo;
 	}
-	
-	
+
 }
