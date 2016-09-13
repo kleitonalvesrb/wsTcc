@@ -11,11 +11,18 @@ public class UsuarioDAO {
 	 * Método responsavel por inserir um usuario no banco. O usuário vem da aplicação mobile
 	 * @param user
 	 */
+	private FactoryCon conexao = new FactoryCon();
+	public FactoryCon getConexao() {
+		return conexao;
+	}
+	public void setConexao(FactoryCon conexao) {
+		this.conexao = conexao;
+	}
 	public void inseirUsuario(Usuario user){
-		FactoryCon con = new FactoryCon();
-		con.getManager().getTransaction().begin();
-		con.getManager().persist(user);
-		con.getManager().getTransaction().commit();
+		getConexao().getManager().getTransaction().begin();
+		getConexao().getManager().persist(user);
+		getConexao().getManager().getTransaction().commit();
+		getConexao().getManager().close();
 	}
 	/**
 	 * Método responsavel por buscar o usuario no banco de dados pelo seu id
@@ -24,13 +31,15 @@ public class UsuarioDAO {
 	 */
 	public Usuario buscaUsurioId(int id){
 		String jpql = "select u from USUARIO u where u.idUsuario = :idUsuario";
-		Query query = new FactoryCon().getManager().createQuery(jpql);
+		Query query = getConexao().getManager().createQuery(jpql);
 		query.setParameter("idUsuario", 1);
 		try {
 			Usuario u = (Usuario) query.getSingleResult();
 			return u;
 		} catch (NoResultException e) {
 			return null;
+		}finally {
+			getConexao().getManager().close();
 		}
 	}
 	/**
@@ -39,17 +48,20 @@ public class UsuarioDAO {
 	 * @param user
 	 */
 	public void atualizarUsuario(Usuario user){
-		FactoryCon con = new FactoryCon();
-		con.getManager().getTransaction().begin();
-		con.getManager().merge(user);
-		con.getManager().getTransaction().commit();
+		
+		getConexao().getManager().getTransaction().begin();
+		getConexao().getManager().merge(user);
+		getConexao().getManager().getTransaction().commit();
+		getConexao().getManager().close();
 	}
 	
 	public boolean verificaExistencia(String email){
 		String jpql = "select u from USUARIO u where u.email = ?1";
-		Query query = new FactoryCon().getManager().createQuery(jpql);
+		Query query = getConexao().getManager().createQuery(jpql);
 		query.setParameter(1, email);
-		return query.getResultList().size() > 0;
+		boolean flag = query.getResultList().size() > 0;
+		getConexao().getManager().close();
+		return flag;
 	}
 	
 	/**
@@ -69,6 +81,9 @@ public class UsuarioDAO {
 			return user;
 		}catch (NoResultException e) {
 			return null;
+		}finally {
+			getConexao().getManager().close();
+			System.out.println("entrou no finally para encerrar");
 		}
 	}
 	/**
@@ -85,6 +100,8 @@ public class UsuarioDAO {
 			return user;
 		} catch (NoResultException e) {
 			return null;
+		}finally {
+			getConexao().getManager().close();
 		}
 		
 	}

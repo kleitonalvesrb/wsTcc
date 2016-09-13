@@ -15,10 +15,16 @@ public class MedicamentoDAO {
 	 * @param idUsuario
 	 * @return lista de medicamentos
 	 */
-	
+	private FactoryCon conecao = new FactoryCon();
+	public FactoryCon getConecao() {
+		return conecao;
+	}
+	public void setConecao(FactoryCon conecao) {
+		this.conecao = conecao;
+	}
 	public List<Medicamento> buscaTodosMedicaemntosUsuarioId(int id){
 		String jpql = "Select m from MEDICAMENTO m where m.user.idUsuario = :usuario_id";
-		Query query = new FactoryCon().getManager().createQuery(jpql);
+		Query query = getConecao().getManager().createQuery(jpql);
 		query.setParameter("usuario_id",id);
 		List<Medicamento> medicamentos = new ArrayList<>();
 		try {
@@ -27,12 +33,14 @@ public class MedicamentoDAO {
 		} catch (NoResultException e) {
 			// TODO: handle exception
 			System.out.println("error");
+		}finally {
+			getConecao().getManager().close();
 		}
 		return medicamentos;
 	}
 	public List<Medicamento> buscaTodosMedicamentosUsuario(String email){
 		String jpql = "Select u from USUARIO u where u.email = ?1";
-		Query query = new FactoryCon().getManager().createQuery(jpql);
+		Query query = getConecao().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 		try {
@@ -42,6 +50,8 @@ public class MedicamentoDAO {
 			return medicamentos;
 		} catch (NoResultException e) {
 			return medicamentos;
+		}finally {
+			getConecao().getManager().close();
 		}
 	}
 	/*public List<Medicamento> buscaTodosMedicamentosUsuario(Integer idUsuario){
