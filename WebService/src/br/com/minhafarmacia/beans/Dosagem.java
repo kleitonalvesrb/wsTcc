@@ -13,6 +13,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.com.minhafarmacia.util.Util;
+
 @XmlRootElement
 @Entity(name = "DOSAGEM")
 @SequenceGenerator(name = "DOSAGEM_SEQUENCE", sequenceName = "DOSAGEM_SEQUENCE", allocationSize = 1, initialValue = 0)
@@ -29,7 +31,8 @@ public class Dosagem implements Serializable {
 	private String tipo;
 	@Transient
 	private String dataInicioString;
-	@Temporal(TemporalType.DATE)
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
 	private Integer periodo;
 	private Integer intervalo;
@@ -52,17 +55,11 @@ public class Dosagem implements Serializable {
 		return result;
 	}
 
-	public String getDataInicioString() {
-		return dataInicioString;
-	}
 
-	public void setDataInicioString(String dataInicioString) {
-		this.dataInicioString = dataInicioString;
-	}
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+	
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -105,13 +102,7 @@ public class Dosagem implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public String getDataInicio() {
-		return dataInicioString;
-	}
-
-	public void setDataInicio(String dataInicio) {
-		this.dataInicioString = dataInicio;
-	}
+	
 
 	public Integer getPeriodo() {
 		return periodo;
@@ -128,5 +119,25 @@ public class Dosagem implements Serializable {
 	public void setIntervalo(Integer intervalo) {
 		this.intervalo = intervalo;
 	}
+//
 
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public String getDataInicioString() {
+		return dataInicioString;
+	}
+
+	public void setDataInicioString(String dataInicioString) {
+		setDataInicio(Util.converteStringToDate(Util.trataDataPadraoString(dataInicioString)));
+		this.dataInicioString = dataInicioString;
+	}
+	
+//	
+	
 }

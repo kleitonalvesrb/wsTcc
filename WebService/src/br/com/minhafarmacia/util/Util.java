@@ -17,67 +17,88 @@ public class Util {
 	public void u() {
 		System.out.println("teste");
 	}
-    /**
-     * Converte uma data que vem com String 
-     * @param dataString
-     * @return data
-     */
+
+	/**
+	 * Converte uma data que vem com String
+	 * 
+	 * @param dataString
+	 * @return data
+	 */
 	public static Date converteStringToDate(String dataString) {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formatter;
+		if(dataString.length() <= 10){
+			formatter = new SimpleDateFormat("dd/MM/yyyy");
+		}else{
+			formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		}
 		Date dataNascimentoCorreto = new Date();
 		try {
-			dataNascimentoCorreto = (Date)formatter.parse(dataString);
+			dataNascimentoCorreto = (Date) formatter.parse(dataString);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return dataNascimentoCorreto;
 	}
-/**
- * Transforma um data por extenso em uma data no formato abreviado ex 10/09/2012
- * @param dataString
- * @return daata abreviada
- */
+
+	// "4 de set de 2016 02:08"
+	/**
+	 * Transforma um data por extenso em uma data no formato abreviado ex
+	 * 10/09/2012
+	 * 
+	 * @param dataString
+	 * @return daata abreviada
+	 */
 	public static String trataDataPadraoString(String dataString) {
 		StringBuilder dia = new StringBuilder();
 		StringBuilder mes = new StringBuilder();
 		StringBuilder ano = new StringBuilder();
 		StringBuilder dataCompleta = new StringBuilder();
+		StringBuilder hora = new StringBuilder();
 		StringBuilder data = new StringBuilder();
 		// se o dia for entre 1 e 9 terá 16 letras entao acrescenta o 0 no
 		// inicio
+
 		System.out.println(dataString.length());
-		if (dataString.length() == 16) {
+
+		if (dataString.length() == 16 || dataString.length() == 22) {
 			data.append("0");
 			data.append(dataString);
-		}else{
+		} else {
 			data.append(dataString);
 		}
-//13 de ago de 2016
-		System.out.println("--->"+data+"<---");
+		// 3 de ago de 2016
+		System.out.println("--->" + data + "<---");
 		for (int i = 0; i <= data.length(); i++) {
 			if (i <= 1)
 				dia.append(data.charAt(i));
-			if(i>=6 && i <=8)
+			if (i >= 6 && i <= 8)
 				mes.append(data.charAt(i));
-			if(i>=13 && i <=16)
+			if (i >= 13 && i <= 16)
 				ano.append(data.charAt(i));
+			if (dataString.length() >= 18 && i >= 17 && i <= 22)
+				hora.append(data.charAt(i));
 			
+
 		}
 		dataCompleta.append(dia);
 		dataCompleta.append("/");
 		dataCompleta.append(getNumeroMes(mes.toString()));
 		dataCompleta.append("/");
 		dataCompleta.append(ano);
+		if (dataString.length() >= 18)
+			dataCompleta.append(hora);
 
 		return dataCompleta.toString();
 	}
+
 	/**
-	 * Retorno o numero do mes de acordo com a abreviatura 
+	 * Retorno o numero do mes de acordo com a abreviatura
+	 * 
 	 * @param mesString
 	 * @return numero do mes em string
 	 */
-	public static String getNumeroMes(String mesString){
+	public static String getNumeroMes(String mesString) {
 		String mes = "";
 		switch (mesString) {
 		case "jan":
@@ -90,37 +111,37 @@ public class Util {
 			mes = "03";
 			break;
 		case "abr":
-			mes = "04"; 
+			mes = "04";
 			break;
 		case "mai":
-			mes = "05"; 
+			mes = "05";
 			break;
 		case "jun":
-			mes = "06"; 
+			mes = "06";
 			break;
 		case "jul":
-			mes = "07"; 
+			mes = "07";
 			break;
 		case "ago":
 			mes = "08";
 			break;
 		case "set":
-			mes = "09"; 
+			mes = "09";
 			break;
 		case "out":
-			mes = "10"; 
+			mes = "10";
 			break;
 		case "nov":
-			mes = "11"; 
+			mes = "11";
 			break;
 		case "dez":
-			mes = "12"; 
+			mes = "12";
 			break;
 		default:
 			mes = "00";
 			break;
 		}
-		
+
 		return mes;
 	}
 
@@ -142,14 +163,16 @@ public class Util {
 		}
 		return u;
 	}
+
 	/**
-	 * Método responsavel por fazer a códificacao da imagem, pega a foto no banco
-	 * que esta salvo como byte e a transforma em String base 64
+	 * Método responsavel por fazer a códificacao da imagem, pega a foto no
+	 * banco que esta salvo como byte e a transforma em String base 64
+	 * 
 	 * @param m
 	 * @return todos os dados do medicamento
 	 */
-	public static Medicamento trataDadosMedicamento(Medicamento m){
-		if (m.getFotoBytes() != null){
+	public static Medicamento trataDadosMedicamento(Medicamento m) {
+		if (m.getFotoBytes() != null) {
 			m.setFotoMedicamentoString(m.getFotoBytes().toString());
 			String e = Base64.getEncoder().encodeToString(m.getFotoBytes());
 			m.setFotoMedicamentoString(e);
@@ -172,7 +195,7 @@ public class Util {
 		byte[] decoded = Base64.getDecoder().decode(str);
 		System.out.println(decoded);
 		System.out.println(decoded.length);
-		//converteByteArrayToFile(decoded);
+		// converteByteArrayToFile(decoded);
 		return decoded;
 	}
 

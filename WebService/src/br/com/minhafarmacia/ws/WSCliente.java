@@ -138,7 +138,6 @@ public class WSCliente {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response insereUsuario(Usuario usuario) {
-		System.out.println("método inserir <--------------");
 		if (usuario != null) {
 			try {
 				usuario.setFotoByte(Util.converteToByte(usuario.getFoto()));

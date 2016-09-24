@@ -30,27 +30,29 @@ public class WsMedicamento {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarUsuario(@PathParam("email") String email, Medicamento medicamento) {
-		System.out.println("--MEDICAMENTO-->"+medicamento);
-		System.out.println("--DOSAGEM--->"+medicamento.getDosagem().toString());
+		System.out.println("--MEDICAMENTO-->"+medicamento.getDosagem().getDataInicio());
+		System.out.println("--MEDICAMENTO-->"+medicamento.getDosagem().getDataInicioString());
+		System.out.println("--QUANTIDADE-->"+medicamento.getDosagem().getQuantidade());
+		//System.out.println("--DOSAGEM--->"+medicamento.getDosagem().toString());
 		if (medicamento != null && email != null && email.trim() != "") {
 			try {
 				medicamento.setFotoBytes(Util.converteToByte(medicamento.getFotoMedicamentoString()));
-				System.out.println("1 ------> converteu a imagem para bytes");
+//				System.out.println("1 ------> converteu a imagem para bytes");
 			} catch (IOException e) {
 				System.out.println("Erro ao converter a foto do medicamento");
 			}
 			UsuarioDAO udao = new UsuarioDAO();
 			Usuario u = udao.buscaUsuarioEmail(email);
-			System.out.println("vai verificar se encontrou usuario com o email informado");
+//			System.out.println("vai verificar se encontrou usuario com o email informado");
 			if (u != null){
-				System.out.println(medicamento);
+//				System.out.println(medicamento);
 				List<Medicamento> medicamentos = u.getMedicamentos();
-				System.out.println("2 ----> lista de medicamentos antes --->"+medicamentos.size());
+//				System.out.println("2 ----> lista de medicamentos antes --->"+medicamentos.size());
 				medicamentos.add(medicamento);
-				System.out.println("3 ---> lista de medicamentos depois "+medicamentos.size());
+//				System.out.println("3 ---> lista de medicamentos depois "+medicamentos.size());
 				u.setMedicamentos(medicamentos);
 				udao.atualizarUsuario(u);
-				System.out.println("4 -----> inseriu o medicamento para o usuario");
+//				System.out.println("4 -----> inseriu o medicamento para o usuario");
 			}
 		}else{
 			System.out.println("tem alguma coisa errada nessa merda");

@@ -23,6 +23,7 @@ public class MedicamentoDAO {
 		this.conecao = conecao;
 	}
 	public List<Medicamento> buscaTodosMedicaemntosUsuarioId(int id){
+		setConecao(new FactoryCon());
 		String jpql = "Select m from MEDICAMENTO m where m.user.idUsuario = :usuario_id";
 		Query query = getConecao().getManager().createQuery(jpql);
 		query.setParameter("usuario_id",id);
@@ -39,6 +40,7 @@ public class MedicamentoDAO {
 		return medicamentos;
 	}
 	public List<Medicamento> buscaTodosMedicamentosUsuario(String email){
+		setConecao(new FactoryCon());
 		String jpql = "Select u from USUARIO u where u.email = ?1";
 		Query query = getConecao().getManager().createQuery(jpql);
 		query.setParameter(1, email);

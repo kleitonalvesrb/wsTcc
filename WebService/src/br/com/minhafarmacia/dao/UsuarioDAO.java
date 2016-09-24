@@ -30,6 +30,7 @@ public class UsuarioDAO {
 	 * @return usuario completo ou null caso nao encontre nenhum usuario
 	 */
 	public Usuario buscaUsurioId(int id){
+		setConexao(new FactoryCon());
 		String jpql = "select u from USUARIO u where u.idUsuario = :idUsuario";
 		Query query = getConexao().getManager().createQuery(jpql);
 		query.setParameter("idUsuario", 1);
@@ -48,7 +49,7 @@ public class UsuarioDAO {
 	 * @param user
 	 */
 	public void atualizarUsuario(Usuario user){
-		
+		setConexao(new FactoryCon());
 		getConexao().getManager().getTransaction().begin();
 		getConexao().getManager().merge(user);
 		getConexao().getManager().getTransaction().commit();
@@ -56,6 +57,7 @@ public class UsuarioDAO {
 	}
 	
 	public boolean verificaExistencia(String email){
+		setConexao(new FactoryCon());
 		String jpql = "select u from USUARIO u where u.email = ?1";
 		Query query = getConexao().getManager().createQuery(jpql);
 		query.setParameter(1, email);
@@ -71,8 +73,9 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public Usuario fazLogin(String email, String senha){
+		setConexao(new FactoryCon());
 		String jpql = "select u from USUARIO u where u.email = ?1 and u.senha = ?2";
-		Query query = new FactoryCon().getManager().createQuery(jpql);
+		Query query = getConexao().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		query.setParameter(2, senha);
 		
@@ -92,8 +95,9 @@ public class UsuarioDAO {
 	 * @return
 	 */
 	public Usuario buscaUsuarioEmail(String email){
+		setConexao(new FactoryCon());
 		String jpql = "Select u from USUARIO u where u.email = ?1";
-		Query query = new FactoryCon().getManager().createQuery(jpql);
+		Query query = getConexao().getManager().createQuery(jpql);
 		query.setParameter(1, email);
 		try {
 			Usuario user = (Usuario) query.getSingleResult();

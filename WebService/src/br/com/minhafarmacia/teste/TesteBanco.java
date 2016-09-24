@@ -55,7 +55,7 @@ public class TesteBanco {
 		//// // TODO Auto-generated catch block
 		//// e.printStackTrace();
 		//// }
-		inserir();
+		//inserir();
 		//testeAtualizacao();
 	//testeBuscar();
 		//testeBuscaEmail("kleiton@gmail.com");
@@ -64,6 +64,8 @@ public class TesteBanco {
 		//testeBuscaMedicamentoIdUsuario();
 		//testeBanco();
 		//fazLogin();
+//		System.out.println(Util.converteStringToDate("24/01/2016 02:34"));
+		//System.out.println(Util.trataDataPadraoString("4 de set de 2016 02:08"));
 	}
 	
 	public static void testeBanco(){
@@ -124,7 +126,7 @@ public class TesteBanco {
 		//u.setDataNascimentoString(new Date().toString());
 		//u.setDataNascimento(new Util().converteStringToDate(u.getDataNascimentoString()));
 		Dosagem d = new Dosagem();
-		d.setDataInicio("hoje");
+		//d.setDataInicio("hoje");
 		d.setIntervalo(8);
 		d.setPeriodo(45);
 		d.setQuantidade(20D);
