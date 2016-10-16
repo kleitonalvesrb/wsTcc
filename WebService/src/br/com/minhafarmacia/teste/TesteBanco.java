@@ -66,14 +66,30 @@ public class TesteBanco {
 		//fazLogin();
 //		System.out.println(Util.converteStringToDate("24/01/2016 02:34"));
 		//System.out.println(Util.trataDataPadraoString("4 de set de 2016 02:08"));
+		//testeBuscarIdFaceboook();
+		//testeBuscaEmail("dina@gmail.com");
+		atualizarNomeUsuario();
 	}
-	
+	public static void atualizarNomeUsuario(){
+		UsuarioDAO d = new UsuarioDAO();
+		Usuario u = d.buscaUsuarioEmail("anna@gmail.com");
+		u.setNome("Anna Luisa T. R.");
+		d.atualizaNomeUsuario(u);
+		System.out.println("-----> "+d.buscaUsuarioEmail("anna@gmail.com").getNome()+" Nome");
+		System.out.println(u);
+		
+	}
+	public static void testeBuscarIdFaceboook(){
+		UsuarioDAO d = new UsuarioDAO();
+		System.out.println(d.buscaUsuarioIdFacebook("facebook1234"));
+	}
 	public static void testeBanco(){
 		
 		Usuario u = new Usuario();
-		u.setNome("Kleiton");
-		u.setEmail("kleiton@gmail.com");
+		u.setNome("Dina");
+		u.setEmail("anna@gmail.com");
 		u.setSenha("1234");
+		u.setIdFacebook("facebook1234");
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("JPA_UNIT");
 		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();    

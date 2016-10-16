@@ -134,7 +134,7 @@ public class Dosagem implements Serializable {
 	}
 
 	public void setDataInicioString(String dataInicioString) {
-		setDataInicio(Util.converteStringToDate(Util.trataDataPadraoString(dataInicioString)));
+//		setDataInicio(Util.converteStringToDate(Util.trataDataPadraoString(dataInicioString)));
 		this.dataInicioString = dataInicioString;
 	}
 	

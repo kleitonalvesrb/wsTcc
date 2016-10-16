@@ -58,7 +58,7 @@ public class WsMedicamento {
 			System.out.println("tem alguma coisa errada nessa merda");
 		}
 		//return Response.status(Status.UNAUTHORIZED).entity(medicamento).build();
-		 
+		
 		return Response.ok().entity(medicamento).build();
 	}
 	

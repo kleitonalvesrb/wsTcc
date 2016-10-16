@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -73,6 +74,17 @@ public class WSCliente {
 			u.setEmail("");
 		}
 		return u;
+	}
+	@GET
+	@Path("/consulta-id-facebook/{idFacebook}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook){
+		System.out.println("----->"+idFacebook);
+		UsuarioDAO uDao = new UsuarioDAO();
+		if(uDao.buscaUsuarioIdFacebook(idFacebook) != null)
+			return Response.status(200).build();
+		else
+			return Response.status(404).build();
 	}
 
 	/**
@@ -158,7 +170,33 @@ public class WSCliente {
 		return Response.noContent().build();
 
 	}
+	
+	@PUT
+	@Path("/atualizar-nome/{email}-{novoNome}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response atualizaNomeUsuario(@PathParam("email") String email, @PathParam("novoNome") String novoNome){
+		System.out.println("------------>"+email+"<----------");
+		System.out.println("------------>"+novoNome+"<----------");
 
+		if(email != null && novoNome != null && email.length() > 3 && novoNome.length() > 3){
+			System.out.println("email e nome nos conformes");
+			UsuarioDAO udao = new UsuarioDAO();
+			Usuario user = udao.buscaUsuarioEmail(email);
+			if (user != null){
+				System.out.println("Usuario encontrado, podemos trocar");
+				user.setNome(novoNome);
+				udao.atualizaNomeUsuario(user);
+				return Response.status(200).build();
+			}else{
+				System.out.println("Nao encontrou o usuario");
+				return Response.status(404).build();
+			}
+		}else{
+			System.out.println("Nao esta nos conformes");
+			return Response.status(400).build();
+		}
+	}
 	// public byte[] converteToByte(String str) throws FileNotFoundException,
 	// IOException {
 	// byte[] bytes;
