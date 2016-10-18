@@ -153,5 +153,27 @@ public class UsuarioDAO {
 			return false;
 		}
 	}
+	/**
+	 * Atualziar a senha do usuario
+	 * @param user
+	 */
+	public void atualizarSenhaUsuario(Usuario user){
+		setConexao(new FactoryCon());
+		getConexao().getManager().getTransaction().begin();
+		getConexao().getManager().merge(user);
+		getConexao().getManager().getTransaction().commit();
+		getConexao().getManager().close();
+	}
+	/**
+	 * Atualixar a foto de perfil
+	 * @param user
+	 */
+	public void atualizarFotoPerfilUsuario(Usuario user){
+		setConexao(new FactoryCon());
+		getConexao().getManager().getTransaction().begin();
+		getConexao().getManager().merge(user);
+		getConexao().getManager().getTransaction().commit();
+		getConexao().getManager().close();
+	}
 	
 }

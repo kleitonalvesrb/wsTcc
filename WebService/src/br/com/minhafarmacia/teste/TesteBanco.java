@@ -68,7 +68,8 @@ public class TesteBanco {
 		//System.out.println(Util.trataDataPadraoString("4 de set de 2016 02:08"));
 		//testeBuscarIdFaceboook();
 		//testeBuscaEmail("dina@gmail.com");
-		atualizarNomeUsuario();
+		//atualizarNomeUsuario();
+		System.out.println(Util.retiraCaracterInvalido("Kleiton Alves", "+", " "));
 	}
 	public static void atualizarNomeUsuario(){
 		UsuarioDAO d = new UsuarioDAO();

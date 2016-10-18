@@ -17,7 +17,17 @@ public class Util {
 	public void u() {
 		System.out.println("teste");
 	}
-
+	/**
+	 * Trocar uma caracter que seja invalido na string
+	 * @param str
+	 * @param troca
+	 * @param trocarPor
+	 * @return string tratada
+	 */
+	public static String retiraCaracterInvalido(String str, String troca, String trocarPor){
+		
+		return str.replace(troca, trocarPor);
+	}
 	/**
 	 * Converte uma data que vem com String
 	 * 

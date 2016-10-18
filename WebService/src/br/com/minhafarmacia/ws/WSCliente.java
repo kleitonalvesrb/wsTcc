@@ -75,13 +75,14 @@ public class WSCliente {
 		}
 		return u;
 	}
+
 	@GET
 	@Path("/consulta-id-facebook/{idFacebook}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook){
-		System.out.println("----->"+idFacebook);
+	public Response consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook) {
+		System.out.println("----->" + idFacebook);
 		UsuarioDAO uDao = new UsuarioDAO();
-		if(uDao.buscaUsuarioIdFacebook(idFacebook) != null)
+		if (uDao.buscaUsuarioIdFacebook(idFacebook) != null)
 			return Response.status(200).build();
 		else
 			return Response.status(404).build();
@@ -128,15 +129,13 @@ public class WSCliente {
 		Usuario u = new Usuario();
 		u = udao.fazLogin(email, senha);
 		// System.out.println("------>"+u.getNome());
-		if (u != null){
+		if (u != null) {
 			u = Util.trataDadosUsuario(u);
 			u.setMedicamentos(null);
 		}
 
 		return u;
 	}
-
-	
 
 	/**
 	 * Método responsavel por inserir usuario no banco de dados
@@ -166,61 +165,129 @@ public class WSCliente {
 			}
 		}
 		System.out.println(Response.noContent().build());
-//		Response.status(Status.UNAUTHORIZED).entity(arg0)
+		// Response.status(Status.UNAUTHORIZED).entity(arg0)
 		return Response.noContent().build();
 
 	}
-	
+	/**
+	 * Altera a foto do perfil do usuario
+	 * @param user
+	 * @return status
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/atualizar-foto/")
+	public Response atualizaFotoUsuario(Usuario user) {
+		System.out.println("Entrou aqui ----------------------------");
+		if (user != null) {
+			UsuarioDAO udao = new UsuarioDAO();
+			Usuario userUpdate = udao.buscaUsuarioEmail(user.getEmail());
+			if (userUpdate != null) {
+				try {
+					userUpdate.setFotoByte(Util.converteToByte(user.getFoto()));
+					udao.atualizarFotoPerfilUsuario(userUpdate);
+					return Response.status(200).build();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				return Response.status(404).build();
+			}
+		} else {
+			return Response.status(400).build();
+		}
+		return null;
+	}
+
+	/**
+	 * Método responsavel por trocar o nome do usuario, o usuario ser
+	 * identificado pelo seus email
+	 * 
+	 * @param email
+	 * @param novoNome
+	 * @return status
+	 */
 	@PUT
 	@Path("/atualizar-nome/{email}-{novoNome}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizaNomeUsuario(@PathParam("email") String email, @PathParam("novoNome") String novoNome){
-		System.out.println("------------>"+email+"<----------");
-		System.out.println("------------>"+novoNome+"<----------");
-
-		if(email != null && novoNome != null && email.length() > 3 && novoNome.length() > 3){
+	public Response atualizaNomeUsuario(@PathParam("email") String email, @PathParam("novoNome") String novoNome) {
+		novoNome = Util.retiraCaracterInvalido(novoNome, "+", " ");
+		if (email != null && novoNome != null && email.length() > 3 && novoNome.length() > 3) {
 			System.out.println("email e nome nos conformes");
 			UsuarioDAO udao = new UsuarioDAO();
 			Usuario user = udao.buscaUsuarioEmail(email);
-			if (user != null){
+			if (user != null) {
 				System.out.println("Usuario encontrado, podemos trocar");
 				user.setNome(novoNome);
 				udao.atualizaNomeUsuario(user);
 				return Response.status(200).build();
-			}else{
+			} else {
 				System.out.println("Nao encontrou o usuario");
 				return Response.status(404).build();
 			}
-		}else{
+		} else {
 			System.out.println("Nao esta nos conformes");
 			return Response.status(400).build();
 		}
 	}
-	// public byte[] converteToByte(String str) throws FileNotFoundException,
-	// IOException {
-	// byte[] bytes;
-	// bytes = str.getBytes("UTF-8");
-	// byte[] decoded = Base64.getDecoder().decode(str);
-	// System.out.println(decoded);
-	// System.out.println(decoded.length);
-	// converteByteArrayToFile(decoded);
-	// return decoded;
-	// }
-	//
-	// public static void converteByteArrayToFile(byte[] bytes) throws
-	// FileNotFoundException, IOException {
-	// FileOutputStream fos = new FileOutputStream(new
-	// File("/Users/kleitonbatista/Desktop/img.pdf"));
-	// fos.write(bytes);
-	// fos = new FileOutputStream(new
-	// File("/Users/kleitonbatista/Desktop/imgnow.png"));
-	// fos.write(bytes);
-	// fos = new FileOutputStream(new
-	// File("/Users/kleitonbatista/Desktop/imgnow.jpg"));
-	// fos.write(bytes);
-	// fos = new FileOutputStream(new
-	// File("/Users/kleitonbatista/Desktop/imgnow.jpeg"));
-	// fos.write(bytes);
-	// }
+
+	/**
+	 * método responsavel por alterar a senha do usuario, o usuario sera
+	 * identificado pelo seu email
+	 * 
+	 * @param email
+	 * @param novaSenha
+	 * @return status
+	 */
+	@PUT
+	@Path("/atualizar-senha/{email}-{novaSenha}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response atualizaSenhaUsuario(@PathParam("email") String email, @PathParam("novaSenha") String novaSenha) {
+		novaSenha = Util.retiraCaracterInvalido(novaSenha, "+", " ");
+		if (email != null && novaSenha != null && email.length() > 3 && novaSenha.length() > 5) {
+			UsuarioDAO udao = new UsuarioDAO();
+			Usuario user = udao.buscaUsuarioEmail(email);
+			if (user != null) {
+				user.setSenha(novaSenha);
+				udao.atualizarSenhaUsuario(user);
+				return Response.status(200).build();
+
+			} else {
+				return Response.status(404).build();
+			}
+		} else {
+			return Response.status(400).build();
+		}
+	}
+
 }
+// public byte[] converteToByte(String str) throws FileNotFoundException,
+// IOException {
+// byte[] bytes;
+// bytes = str.getBytes("UTF-8");
+// byte[] decoded = Base64.getDecoder().decode(str);
+// System.out.println(decoded);
+// System.out.println(decoded.length);
+// converteByteArrayToFile(decoded);
+// return decoded;
+// }
+//
+// public static void converteByteArrayToFile(byte[] bytes) throws
+// FileNotFoundException, IOException {
+// FileOutputStream fos = new FileOutputStream(new
+// File("/Users/kleitonbatista/Desktop/img.pdf"));
+// fos.write(bytes);
+// fos = new FileOutputStream(new
+// File("/Users/kleitonbatista/Desktop/imgnow.png"));
+// fos.write(bytes);
+// fos = new FileOutputStream(new
+// File("/Users/kleitonbatista/Desktop/imgnow.jpg"));
+// fos.write(bytes);
+// fos = new FileOutputStream(new
+// File("/Users/kleitonbatista/Desktop/imgnow.jpeg"));
+// fos.write(bytes);
+// }
