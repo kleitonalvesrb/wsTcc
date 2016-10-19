@@ -14,6 +14,7 @@ import javax.persistence.Persistence;
 
 import br.com.minhafarmacia.beans.Dosagem;
 import br.com.minhafarmacia.beans.Medicamento;
+import br.com.minhafarmacia.beans.Receita;
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.MedicamentoDAO;
 import br.com.minhafarmacia.dao.UsuarioDAO;
@@ -69,7 +70,11 @@ public class TesteBanco {
 		//testeBuscarIdFaceboook();
 		//testeBuscaEmail("dina@gmail.com");
 		//atualizarNomeUsuario();
-		System.out.println(Util.retiraCaracterInvalido("Kleiton Alves", "+", " "));
+		//System.out.println(Util.trataTamanhoString("2016-10-19 03:55:37 +0000", 0, 16));
+		Receita r = new Receita();
+		r.setDataCadastroReceitaString("2016-10-19 03:55");
+		System.out.println("--->"+r.getDataCadastroReceita());
+		System.out.println(Util.trataStringDataFormatoAmericano("2016-10-19 03:55"));
 	}
 	public static void atualizarNomeUsuario(){
 		UsuarioDAO d = new UsuarioDAO();

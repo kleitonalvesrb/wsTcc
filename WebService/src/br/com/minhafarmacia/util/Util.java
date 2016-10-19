@@ -189,7 +189,48 @@ public class Util {
 		}
 		return m;
 	}
-
+	/**
+	 * O método corta uma String, recebe um string como parametro, valor inicial e o final, o inicio
+	 * indica a partir de onde ira começar a contar e o fim até onde
+	 * @param str
+	 * @param inicio
+	 * @param fim
+	 * @return string trata
+	 */
+	public static String trataTamanhoString(String str, int inicio, int fim){
+		return str.substring(inicio,fim);
+	}
+	/**
+	 * Método transforma uma data americana no formato brasileiro, de yyyy-MM-dd HH:mm para
+	 *  dd/MM/yyyy HH:mm
+	 * @param str
+	 * @return data tratada
+	 */
+	public static String trataStringDataFormatoAmericano(String str){
+		//2016-10-19 03:55
+		String [] strDividida = str.split(" ");
+		String hora = strDividida[1];
+		String data = strDividida[0];
+		
+		StringBuilder dataCorreta = new StringBuilder();
+		StringBuilder ano = new StringBuilder();
+		StringBuilder mes = new StringBuilder();
+		StringBuilder dia = new StringBuilder();
+		ano.append(data.substring(0, 4));
+		mes.append(data.substring(5, 7));
+		dia.append(data.substring(8, data.length()));
+		
+		dataCorreta.append(dia);
+		dataCorreta.append("/");
+		dataCorreta.append(mes);
+		dataCorreta.append("/");
+		dataCorreta.append(ano);
+		dataCorreta.append(" ");
+		dataCorreta.append(hora);
+		
+		
+		return dataCorreta.toString();
+	}
 	/**
 	 * Método responsável por converter uma String base 64 em um array de bytes
 	 * 

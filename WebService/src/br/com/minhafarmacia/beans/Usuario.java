@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -41,6 +42,10 @@ public class Usuario implements Serializable{
     @JoinColumn(name = "usuario_id")
 	private List<Medicamento> medicamentos = new ArrayList<Medicamento>();
 	
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "usuario_id")
+    private List<Receita> receitas = new ArrayList<Receita>();
 	
 	@Transient
 	private String foto;
@@ -64,17 +69,24 @@ public class Usuario implements Serializable{
 	public Usuario(String email){
 		setEmail(email);
 	}
-	public Usuario(String nome, String email, String senha,String foto, byte[] fotoByte,List<Medicamento> medicamentos){
+	public Usuario(String nome, String email, String senha,String foto, byte[] fotoByte,List<Medicamento> medicamentos, List<Receita> receitas){
 		setNome(nome);
 		setEmail(email);
 		setSenha(senha);
 		setFoto(foto);
 		setFotoByte(fotoByte);
 		setMedicamentos(medicamentos);
+		setReceitas(receitas);
 	}
 	
 	
 	
+	public List<Receita> getReceitas() {
+		return receitas;
+	}
+	public void setReceitas(List<Receita> receitas) {
+		this.receitas = receitas;
+	}
 	public List<Medicamento> getMedicamentos() {
 		return medicamentos;
 	}
