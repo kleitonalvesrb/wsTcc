@@ -11,6 +11,7 @@ import java.util.Base64;
 import java.util.Date;
 
 import br.com.minhafarmacia.beans.Medicamento;
+import br.com.minhafarmacia.beans.Receita;
 import br.com.minhafarmacia.beans.Usuario;
 
 public class Util {
@@ -188,6 +189,21 @@ public class Util {
 			m.setFotoMedicamentoString(e);
 		}
 		return m;
+	}
+	/**
+	 * Método responsavel por fazer a códificacao da imagem, pega a foto no
+	 * banco que esta salvo como byte e a transforma em String base 64
+	 * 
+	 * @param m
+	 * @return todos os dados da receita
+	 */
+	public static Receita trataDadosReceita(Receita r){
+		if(r.getFotoReceta() != null){
+			r.setFotoReceitaString(r.getFotoReceta().toString());
+			String rs = Base64.getEncoder().encodeToString(r.getFotoReceta());
+			r.setFotoReceitaString(rs);
+		}
+		return r;
 	}
 	/**
 	 * O método corta uma String, recebe um string como parametro, valor inicial e o final, o inicio

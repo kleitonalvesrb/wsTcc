@@ -66,23 +66,7 @@ public class WsMedicamento {
 	@Path("/busca-medicamento/email-user/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Medicamento> buscaMedicamentos(@PathParam("email") String email){
-//		System.out.println("----->"+id+"<---");
-//		List<Medicamento> medicamentosAux;
-//		List<Medicamento> medicamentos = new  ArrayList<>();
-//		try {
-//			Integer idUsuario = Integer.parseInt(id);
-//			 medicamentosAux = new MedicamentoDAO().buscaTodosMedicaemntosUsuarioId(idUsuario);
-//			Util util = new Util();
-//			for (Medicamento m : medicamentosAux) {
-//				System.out.println("tamanho do byte"+m.getFotoBytes().length);
-//				medicamentos.add(util.trataDadosMedicamento(m));
-//			}
-//		} catch (NumberFormatException e) {
-//			// TODO: handle exception
-//		}
-//		System.out.println(medicamentos.size()+"tamanho do array");
-//		return medicamentos;
-		
+
 		Util util = new Util();
 //		System.out.println(" 5 estamos aqui ->> "+email);
 		List<Medicamento> medicamentos = new ArrayList<Medicamento>();
