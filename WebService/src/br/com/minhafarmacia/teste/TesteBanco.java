@@ -71,10 +71,14 @@ public class TesteBanco {
 		//testeBuscaEmail("dina@gmail.com");
 		//atualizarNomeUsuario();
 		//System.out.println(Util.trataTamanhoString("2016-10-19 03:55:37 +0000", 0, 16));
-		Receita r = new Receita();
-		r.setDataCadastroReceitaString("2016-10-19 03:55");
-		System.out.println("--->"+r.getDataCadastroReceita());
-		System.out.println(Util.trataStringDataFormatoAmericano("2016-10-19 03:55"));
+//		Receita r = new Receita();
+//		r.setDataCadastroReceitaString("2016-10-19 03:55");
+//		System.out.println("--->"+r.getDataCadastroReceita());
+//		System.out.println(Util.trataStringDataFormatoAmericano("2016-10-19 03:55"));
+		
+		if(Util.verificaPrimeiraLetra("+2016-10-25 23:50:00 +0000")){
+			System.out.println(Util.trataDataAmericanoPadrao("+2016-10-25 23:50:00 +0000"));
+		}
 	}
 	public static void atualizarNomeUsuario(){
 		UsuarioDAO d = new UsuarioDAO();

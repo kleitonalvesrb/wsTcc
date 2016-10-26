@@ -30,6 +30,50 @@ public class Util {
 		return str.replace(troca, trocarPor);
 	}
 	/**
+	 * Verifica se o primeiro caraceter é igual um '+'
+	 * @param dataString
+	 * @return boolean
+	 */
+	public static boolean verificaPrimeiraLetra(String dataString){
+		//+2016-10-25 23:50:00 +0000
+	
+		return (dataString.charAt(0) == '+');
+	}
+	/**
+	 * Converte uma data no formato americano para o brasileiro
+	 * @param dataString
+	 * @return data formatada
+	 */
+	public static String trataDataAmericanoPadrao(String dataString){
+		dataString = dataString.replace("+","");
+		dataString = dataString.substring(0,16);
+		
+		//2016-10-25 23:50:00
+		StringBuilder ano = new StringBuilder();
+		StringBuilder mes = new StringBuilder();
+		StringBuilder dia = new StringBuilder();
+		StringBuilder hora = new StringBuilder();
+		StringBuilder dataCompleta = new StringBuilder();
+		for(int i = 0; i <=dataString.length(); i++){
+			if(i<4)
+				ano.append(dataString.charAt(i));
+			else if(i>=5 && i<=6)
+				mes.append(dataString.charAt(i));
+			else if (i>=8 && i<=9)
+				dia.append(dataString.charAt(i));
+			else if (i>=11 && i<=15)
+				hora.append(dataString.charAt(i));
+		}
+		dataCompleta.append(dia);
+		dataCompleta.append("/");
+		dataCompleta.append(mes);
+		dataCompleta.append("/");
+		dataCompleta.append(ano);
+		dataCompleta.append(" ");
+		dataCompleta.append(hora);
+		return dataCompleta	.toString();
+	}
+	/**
 	 * Converte uma data que vem com String
 	 * 
 	 * @param dataString

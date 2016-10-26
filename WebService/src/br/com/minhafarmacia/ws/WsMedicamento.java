@@ -76,6 +76,7 @@ public class WsMedicamento {
 			medicamentosAux.addAll(mdao.buscaTodosMedicamentosUsuario(email));
 //			System.out.println("6 lista de medicamentos ---->"+medicamentosAux);
 			for (Medicamento medicamento : medicamentosAux) {
+				System.out.println("----------------->"+medicamento.getDosagem().getDataInicio()+"<-------");
 //				System.out.println("7 dentro do for");
 //				System.out.println("8 "+medicamento.getFotoBytes().length+"<---- tamanho da imagem");
 				medicamentos.add(util.trataDadosMedicamento(medicamento));
