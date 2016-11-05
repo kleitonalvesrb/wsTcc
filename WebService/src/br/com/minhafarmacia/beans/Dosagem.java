@@ -3,6 +3,7 @@ package br.com.minhafarmacia.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,15 +27,21 @@ public class Dosagem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DOSAGEM_SEQUENCE")
+	@Column(name = "id_dosagem")
 	private Integer id;
+	@Column(name = "quantidade")
 	private Double quantidade;
+	@Column(name = "tipo", length = 10)
 	private String tipo;
 	@Transient
 	private String dataInicioString;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_inicio")
 	private Date dataInicio;
+	@Column(name = "periodo")
 	private Integer periodo;
+	@Column(name = "intervalo")
 	private Integer intervalo;
 
 	public Dosagem() {

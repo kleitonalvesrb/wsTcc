@@ -3,10 +3,12 @@ package br.com.minhafarmacia.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,15 +23,22 @@ import br.com.minhafarmacia.util.Util;
 public class Receita implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECEITA_SEQUENCE")
+	@Column(name = "id_receita")
 	private Integer id;
+	@Lob 
+	@Column(name="descricao", length = 512)
 	private String descricao;
 	@Transient
 	private String fotoReceitaString;
+	
+	@Column(name = "foto")
 	private byte[] fotoReceta;
+	
 	@Transient
 	private String dataCadastroReceitaString;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_cadastro")
 	private Date dataCadastroReceita;
 	public Receita(){
 		

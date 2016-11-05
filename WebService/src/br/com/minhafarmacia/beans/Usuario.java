@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,10 +31,15 @@ public class Usuario implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQUENCE")
+	@Column(name = "id_usuario")
 	private Integer idUsuario;
+	@Column(name = "idade")
 	private Integer idade;
+	@Column(length = 50, name = "nome")
 	private String nome;
+	@Column(length = 50, name = "email")
 	private String email;
+	@Column(length = 32, name = "senha")
 	private String senha;
 	//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario_id")
 
@@ -49,17 +55,21 @@ public class Usuario implements Serializable{
 	
 	@Transient
 	private String foto;
+	@Column(name = "foto")
 	private byte[] fotoByte;
+	@Transient
 	private String idFacebook;
 	@Transient
 	private String dataNascimentoString;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 	
-	
+	@Column(length = 10, name = "sexo")
 	private String sexo;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 	
 	

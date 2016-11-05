@@ -3,6 +3,7 @@ package br.com.minhafarmacia.beans;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,14 +23,21 @@ public class Medicamento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEDICAMENTO_SEQUENCE")
 	private Integer id;
+	@Column(length = 45, name = "cod_barras")
 	private String codigoBarras;
+	@Column(length = 100, name = "nome")
 	private String nomeProduto;
+	@Column(length = 100, name = "principio_ativo")
 	private String principioAtivo;
+	@Column(length = 255, name = "apresentacao")
 	private String apresentacao;
+	@Column(length = 100, name = "laboratorio")
 	private String laboratorio;
+	@Column(length = 100, name = "classe_terapeutica")
 	private String classeTerapeutica;
 	@Transient
 	private String fotoMedicamentoString;
+	@Column(name = "foto")
 	private byte [] fotoBytes;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
