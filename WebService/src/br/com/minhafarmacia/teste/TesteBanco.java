@@ -17,6 +17,7 @@ import br.com.minhafarmacia.beans.Medicamento;
 import br.com.minhafarmacia.beans.Receita;
 import br.com.minhafarmacia.beans.Usuario;
 import br.com.minhafarmacia.dao.MedicamentoDAO;
+import br.com.minhafarmacia.dao.ReceitaDAO;
 import br.com.minhafarmacia.dao.UsuarioDAO;
 import br.com.minhafarmacia.util.Util;
 
@@ -76,9 +77,14 @@ public class TesteBanco {
 //		System.out.println("--->"+r.getDataCadastroReceita());
 //		System.out.println(Util.trataStringDataFormatoAmericano("2016-10-19 03:55"));
 		
-		if(Util.verificaPrimeiraLetra("+2016-10-25 23:50:00 +0000")){
-			System.out.println(Util.trataDataAmericanoPadrao("+2016-10-25 23:50:00 +0000"));
-		}
+//		if(Util.verificaPrimeiraLetra("+2016-10-25 23:50:00 +0000")){
+//			System.out.println(Util.trataDataAmericanoPadrao("+2016-10-25 23:50:00 +0000"));
+//		}
+		testaBuscaReceita();
+	}
+	public static void testaBuscaReceita(){
+		ReceitaDAO rdao = new ReceitaDAO();
+		rdao.deletaReceita(rdao.buscaReceitaId(2));
 	}
 	public static void atualizarNomeUsuario(){
 		UsuarioDAO d = new UsuarioDAO();

@@ -33,13 +33,14 @@ public class Usuario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQUENCE")
 	@Column(name = "id_usuario")
 	private Integer idUsuario;
-	@Column(name = "idade")
+	
+	@Transient
 	private Integer idade;
-	@Column(length = 50, name = "nome")
+	@Column(length = 50, name = "nome", nullable = false)
 	private String nome;
-	@Column(length = 50, name = "email")
+	@Column(length = 50, name = "email", nullable = false)
 	private String email;
-	@Column(length = 32, name = "senha")
+	@Column(length = 32, name = "senha", nullable = false)
 	private String senha;
 	//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario_id")
 
@@ -57,19 +58,19 @@ public class Usuario implements Serializable{
 	private String foto;
 	@Column(name = "foto")
 	private byte[] fotoByte;
-	@Transient
+	@Column(name="id_facebook", length = 20)
 	private String idFacebook;
 	@Transient
 	private String dataNascimentoString;
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_nascimento")
+	@Column(name = "data_nascimento", nullable =false)
 	private Date dataNascimento;
 	
-	@Column(length = 10, name = "sexo")
+	@Column(length = 10, name = "sexo", nullable = false)
 	private String sexo;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_cadastro")
+	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastro;
 	
 	
@@ -213,7 +214,10 @@ public class Usuario implements Serializable{
 		return dataNascimentoString;
 	}
 	public void setDataNascimentoString(String dataNascimentoString) {
-		setDataNascimento(Util.converteStringToDate(Util.trataDataPadraoString(dataNascimentoString)));
+		if(dataNascimentoString.length() >= 24)
+			setDataNascimento(Util.converteStringToDate(Util.trataStringDataFormatoAmericano(dataNascimentoString)));
+		else
+			setDataNascimento(Util.converteStringToDate(Util.trataDataPadraoString(dataNascimentoString)));
 		this.dataNascimentoString = dataNascimentoString;
 	}
 	

@@ -76,17 +76,7 @@ public class WSCliente {
 		return u;
 	}
 
-	@GET
-	@Path("/consulta-id-facebook/{idFacebook}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook) {
-		System.out.println("----->" + idFacebook);
-		UsuarioDAO uDao = new UsuarioDAO();
-		if (uDao.buscaUsuarioIdFacebook(idFacebook) != null)
-			return Response.status(200).build();
-		else
-			return Response.status(404).build();
-	}
+	
 
 	/**
 	 * Consulta a existencia de usuário que já tenha email cadastrado no banco
@@ -170,6 +160,39 @@ public class WSCliente {
 
 	}
 	/**
+	 * Método responsavel por inserir usuario no banco de dados
+	 * 
+	 * @param usuario
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	@POST
+	@Path("/inserir-facebook")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response insereUsuarioIdFacebook(Usuario usuario) {
+		if (usuario != null) {
+			try {
+				usuario.setFotoByte(Util.converteToByte(usuario.getFoto()));
+				usuario.setFoto("true");
+				usuario.setDataCadastro(new Date());
+				System.out.println("------>"+usuario.getIdFacebook()+"<------");
+//				System.out.println(usuario.getDataNascimento() + "<----------");
+				new UsuarioDAO().inseirUsuario(usuario);
+				System.out.println(Response.ok().entity(usuario).build());
+				return Response.ok().entity(usuario).build();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(Response.noContent().build());
+		// Response.status(Status.UNAUTHORIZED).entity(arg0)
+		return Response.noContent().build();
+
+	}
+	/**
 	 * Altera a foto do perfil do usuario
 	 * @param user
 	 * @return status
@@ -201,6 +224,18 @@ public class WSCliente {
 		return null;
 	}
 
+	@GET
+	@Path("/consulta-id-facebook/{idFacebook}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook) {
+		UsuarioDAO uDao = new UsuarioDAO();
+		if (uDao.buscaUsuarioIdFacebook(idFacebook) != null)
+			return Response.status(200).build();
+		else
+			return Response.status(404).build();
+	}
+	
 	/**
 	 * Método responsavel por trocar o nome do usuario, o usuario ser
 	 * identificado pelo seus email

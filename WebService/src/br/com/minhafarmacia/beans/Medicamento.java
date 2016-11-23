@@ -23,21 +23,21 @@ public class Medicamento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEDICAMENTO_SEQUENCE")
 	private Integer id;
-	@Column(length = 45, name = "cod_barras")
+	@Column(length = 45, name = "cod_barras", nullable = true)
 	private String codigoBarras;
-	@Column(length = 100, name = "nome")
+	@Column(length = 100, name = "nome", nullable = true)
 	private String nomeProduto;
-	@Column(length = 100, name = "principio_ativo")
+	@Column(length = 100, name = "principio_ativo", nullable = true)
 	private String principioAtivo;
-	@Column(length = 255, name = "apresentacao")
+	@Column(length = 255, name = "apresentacao", nullable = true)
 	private String apresentacao;
-	@Column(length = 100, name = "laboratorio")
+	@Column(length = 100, name = "laboratorio", nullable = true)
 	private String laboratorio;
-	@Column(length = 100, name = "classe_terapeutica")
+	@Column(length = 100, name = "classe_terapeutica", nullable = true)
 	private String classeTerapeutica;
 	@Transient
 	private String fotoMedicamentoString;
-	@Column(name = "foto")
+	@Column(name = "foto", nullable = false)
 	private byte [] fotoBytes;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

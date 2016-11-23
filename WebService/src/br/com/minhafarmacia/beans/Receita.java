@@ -3,6 +3,7 @@ package br.com.minhafarmacia.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,26 +20,27 @@ import br.com.minhafarmacia.util.Util;
 
 @XmlRootElement
 @Entity(name = "RECEITA")
+@Cacheable(false)
 @SequenceGenerator(name = "RECEITA_SEQUENCE", sequenceName = "RECEITA_SEQUENCE", allocationSize = 1, initialValue = 0)
 public class Receita implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECEITA_SEQUENCE")
-	@Column(name = "id_receita")
+	@Column(name = "id_receita", nullable = false)
 	private Integer id;
 	@Lob 
-	@Column(name="descricao", length = 512)
+	@Column(name="descricao", length = 512, nullable = true)
 	private String descricao;
 	@Transient
 	private String fotoReceitaString;
 	
-	@Column(name = "foto")
+	@Column(name = "foto", nullable = false)
 	private byte[] fotoReceta;
 	
 	@Transient
 	private String dataCadastroReceitaString;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_cadastro")
+	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastroReceita;
 	public Receita(){
 		
@@ -95,7 +97,10 @@ public class Receita implements Serializable{
 	public void setFotoReceta(byte[] fotoReceta) {
 		this.fotoReceta = fotoReceta;
 	}
-	
+	@Override
+	public String toString() {
+		return "ID "+getId()+" Descricao "+getDescricao();
+	}
 	
 	
 }

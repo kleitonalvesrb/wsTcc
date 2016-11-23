@@ -111,6 +111,7 @@ public class Util {
 		StringBuilder dataCompleta = new StringBuilder();
 		StringBuilder hora = new StringBuilder();
 		StringBuilder data = new StringBuilder();
+		
 		// se o dia for entre 1 e 9 terá 16 letras entao acrescenta o 0 no
 		// inicio
 
@@ -123,7 +124,6 @@ public class Util {
 			data.append(dataString);
 		}
 		// 3 de ago de 2016
-		System.out.println("--->" + data + "<---");
 		for (int i = 0; i <= data.length(); i++) {
 			if (i <= 1)
 				dia.append(data.charAt(i));
@@ -143,7 +143,8 @@ public class Util {
 		dataCompleta.append(ano);
 		if (dataString.length() >= 18)
 			dataCompleta.append(hora);
-
+		
+		
 		return dataCompleta.toString();
 	}
 
@@ -288,7 +289,7 @@ public class Util {
 		dataCorreta.append(" ");
 		dataCorreta.append(hora);
 		
-		
+		System.out.println(">>>>>>>>"+dataCorreta);
 		return dataCorreta.toString();
 	}
 	/**

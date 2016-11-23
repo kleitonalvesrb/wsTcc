@@ -27,21 +27,21 @@ public class Dosagem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DOSAGEM_SEQUENCE")
-	@Column(name = "id_dosagem")
+	@Column(name = "id_dosagem", nullable = false)
 	private Integer id;
-	@Column(name = "quantidade")
+	@Column(name = "quantidade", nullable = false)
 	private Double quantidade;
-	@Column(name = "tipo", length = 10)
+	@Column(name = "tipo", length = 10, nullable = false)
 	private String tipo;
 	@Transient
 	private String dataInicioString;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_inicio")
+	@Column(name = "data_inicio", nullable = false)
 	private Date dataInicio;
-	@Column(name = "periodo")
+	@Column(name = "periodo", nullable = false)
 	private Integer periodo;
-	@Column(name = "intervalo")
+	@Column(name = "intervalo", nullable = false)
 	private Integer intervalo;
 
 	public Dosagem() {

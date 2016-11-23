@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -53,6 +54,26 @@ public class WSReceita {
 			return Response.status(400).build();
 		}
 	}
+	@DELETE
+	@Path("/deleta-receita/id-receita/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deletaReceita(@PathParam("id") String id){
+		try {
+			Integer idReceita = Integer.parseInt(id);
+			ReceitaDAO rDao = new ReceitaDAO();
+			Receita r = rDao.buscaReceitaId(idReceita);
+			if(r != null){
+				rDao.deletaReceita(r);
+				return Response.status(200).build();
+			}else{
+				return Response.status(404).build();
+			}
+		} catch (NumberFormatException e) {
+			return Response.status(400).build();
+		}
+	}
+	
 	@GET
 	@Path("/busca-receita/email-user/{email}")
 	@Produces(MediaType.APPLICATION_JSON)
