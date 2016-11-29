@@ -1,7 +1,10 @@
 package br.com.minhafarmacia.email;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -56,7 +59,7 @@ public class Email {
 		sb.append("Sua senha de acesso é : ");
 		sb.append(msg);
 		sb.append("\n Solicitação de recuperação de senha realizado em: ");
-		sb.append(preparaHora());
+		sb.append(preparaHora()+" horário de Brasília");
 		sb.append("\n\n\n Caso não tenha solicitado recuperação de senha ignorar esse E-mail");
 		return sb.toString();
 	}
@@ -67,10 +70,26 @@ public class Email {
 	 * @return data e hora atual no formato de String
 	 */
 	private String preparaHora() {
-		StringBuilder sb = new StringBuilder();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd 'de' MMM 'de' yyyy 'as' hh:mm");
-		return sb.append(sdf.format(new Date())).toString();
+//		StringBuilder sb = new StringBuilder();
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd 'de' MMM 'de' yyyy 'as' hh:mm");
+//		return sb.append(sdf.format(new Date())).toString();
+		TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
+		TimeZone.setDefault(tz);
+		Calendar ca = GregorianCalendar.getInstance(tz);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy 'as' HH:mm 'Hrs'");
+		Date h = ca.getInstance().getTime(); // Ou qualquer outra forma que tem
+		return sdf.format(h);
+		
 	}
+//	public static String formataHorario(){
+//		TimeZone tz = TimeZone.getTimeZone("America/Sao_Paulo");
+//		TimeZone.setDefault(tz);
+//		Calendar ca = GregorianCalendar.getInstance(tz);
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+//		Date h = ca.getInstance().getTime(); // Ou qualquer outra forma que tem
+//		return sdf.format(h);
+//		
+//	}
 
 	public String getNome() {
 		return nome;

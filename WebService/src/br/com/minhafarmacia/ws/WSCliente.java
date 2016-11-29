@@ -76,8 +76,6 @@ public class WSCliente {
 		return u;
 	}
 
-	
-
 	/**
 	 * Consulta a existencia de usuário que já tenha email cadastrado no banco
 	 * de dados ira retornar um usuario apenas com o email caso o usuário ja
@@ -159,6 +157,7 @@ public class WSCliente {
 		return Response.noContent().build();
 
 	}
+
 	/**
 	 * Método responsavel por inserir usuario no banco de dados
 	 * 
@@ -172,19 +171,29 @@ public class WSCliente {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response insereUsuarioIdFacebook(Usuario usuario) {
 		if (usuario != null) {
-			try {
-				usuario.setFotoByte(Util.converteToByte(usuario.getFoto()));
-				usuario.setFoto("true");
-				usuario.setDataCadastro(new Date());
-				System.out.println("------>"+usuario.getIdFacebook()+"<------");
-//				System.out.println(usuario.getDataNascimento() + "<----------");
-				new UsuarioDAO().inseirUsuario(usuario);
-				System.out.println(Response.ok().entity(usuario).build());
-				return Response.ok().entity(usuario).build();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			UsuarioDAO udao = new UsuarioDAO();
+
+			if (udao.buscaUsuarioIdFacebook(usuario.getIdFacebook()) != null) {
+				System.out.println("o Usuario existe");
+			} else {
+				System.out.println("O usuario nao existe, vamos cadastrar");
+
+				try {
+					usuario.setEmail(usuario.getIdFacebook());
+					usuario.setFotoByte(Util.converteToByte(usuario.getFoto()));
+					usuario.setFoto("true");
+					usuario.setDataCadastro(new Date());
+					System.out.println("------>" + usuario.getIdFacebook() + "<------");
+					// System.out.println(usuario.getDataNascimento() +
+					// "<----------");
+					new UsuarioDAO().inseirUsuario(usuario);
+					System.out.println(Response.ok().entity(usuario).build());
+					return Response.ok().entity(usuario).build();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		System.out.println(Response.noContent().build());
@@ -192,8 +201,10 @@ public class WSCliente {
 		return Response.noContent().build();
 
 	}
+
 	/**
 	 * Altera a foto do perfil do usuario
+	 * 
 	 * @param user
 	 * @return status
 	 */
@@ -225,17 +236,25 @@ public class WSCliente {
 	}
 
 	@GET
-	@Path("/consulta-id-facebook/{idFacebook}")
+	@Path("/consulta-id-fb/{idFacebook}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook) {
+	public Usuario consultaIdFacebookUsuario(@PathParam("idFacebook") String idFacebook) {
+		System.out.println("akkkkiiiii");
+		System.out.println("id facebook ---> " + idFacebook);
 		UsuarioDAO uDao = new UsuarioDAO();
-		if (uDao.buscaUsuarioIdFacebook(idFacebook) != null)
-			return Response.status(200).build();
-		else
-			return Response.status(404).build();
+		Usuario u = uDao.buscaUsuarioIdFacebook(idFacebook);
+		// System.out.println(u.getNome()+ "-->"+u.getIdFacebook());
+		Usuario usuarioRes = new Usuario();
+		usuarioRes.setIdFacebook(u.getIdFacebook());
+		return usuarioRes;
+		// if ( != null)
+		//
+		// return Response.status(200).build();
+		// else
+		// return Response.status(404).build();
 	}
-	
+
 	/**
 	 * Método responsavel por trocar o nome do usuario, o usuario ser
 	 * identificado pelo seus email
